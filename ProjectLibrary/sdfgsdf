@@ -1,0 +1,2 @@
+Book{id=1, name='paul' isbn='12', author='paul', location='paul', dateOfPublication=0012-12-12, dateAddedToTheLibrary=0012-12-12, dateOfModification=0012-12-12}
+Book{id=1, name='qwe' isbn='qwe', author='qwe', location='qw', dateOfPublication=0012-12-12, dateAddedToTheLibrary=0012-12-12, dateOfModification=0012-12-12}
