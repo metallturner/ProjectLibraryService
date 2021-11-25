@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * тут мы учим java gson как работать с датой..
  */
-public class Serializer implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> {
+public class SerializerDate implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> {
 
     @Override
     public LocalDate deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext)  {
@@ -19,6 +19,7 @@ public class Serializer implements JsonSerializer<LocalDate>, JsonDeserializer<L
     }
     @Override
     public JsonElement serialize(LocalDate localDate, Type type, JsonSerializationContext jsonSerializationContext) {
+
         return new JsonPrimitive(localDate.format(DateTimeFormatter.ISO_LOCAL_DATE)); // "yyyy-mm-dd"
     }
 }

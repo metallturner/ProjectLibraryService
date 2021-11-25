@@ -1,18 +1,17 @@
 package com.library.ui;
 
-import com.library.domain.ControllerInterfaces.BookControllerInterface;
-import com.library.domain.Controllers.BookController;
-import com.library.domain.models.Book;
+import com.library.domain.ControllerInterfaces.DocumentsControllerInterface;
+import com.library.domain.Controllers.DocumentController;
+import com.library.domain.models.Document;
 import com.library.domain.models.messages.Messages;
 
 import java.util.Scanner;
 
-public class RunBook implements RunInterface {
-    BookControllerInterface bookControllerInterface = new BookController();
-    Scanner scanner = new Scanner(System.in);
-
+public class RunDocument implements RunInterface {
     @Override
     public void show() {
+        DocumentsControllerInterface documentsControllerInterface = new DocumentController();
+        Scanner scanner = new Scanner(System.in);
         System.out.println(Messages.VARIANTS);
 
         boolean b = true;
@@ -21,53 +20,50 @@ public class RunBook implements RunInterface {
             String command = scanner.nextLine();
             switch (command) {
                 case "1":
-                    Book bookCreate = new Book();
+                    Document documentCreate = new Document();
                     System.out.println(Messages.NAME);
                     String name = scanner.nextLine();
-                    bookCreate.setName(name);
-                    System.out.println(Messages.ISBN);
-                    String isbn = scanner.nextLine();
-                    bookCreate.setIsbn(isbn);
-                    System.out.println(Messages.AUTHOR);
-                    String author = scanner.nextLine();
-                    bookCreate.setAuthor(author);
+                    documentCreate.setName(name);
+                    System.out.println(Messages.NUMBER_DOC);
+                    String docNumber = scanner.nextLine();
+                    documentCreate.setDocumentNumber(docNumber);
                     System.out.println(Messages.LOCATION);
                     String location = scanner.nextLine();
-                    bookCreate.setLocation(location);
-                    System.out.println(Messages.YEAR_PUB);
-                    int yearPub = scanner.nextInt();
-                    System.out.println(Messages.MONTH_PUB);
-                    int monthPub = scanner.nextInt();
-                    System.out.println(Messages.DAY_PUB);
-                    int dayPub = scanner.nextInt();
-                    bookCreate.setDateOfPublication(yearPub,monthPub,dayPub);
+                    documentCreate.setLocation(location);
+                    System.out.println(Messages.YEAR_CREATE);
+                    int yearCre = scanner.nextInt();
+                    System.out.println(Messages.MONTH_CREATE);
+                    int monthCre = scanner.nextInt();
+                    System.out.println(Messages.DAY_CREATE);
+                    int dayCre = scanner.nextInt();
+                    documentCreate.setDateOfDocumentCreation(yearCre, monthCre, dayCre);
                     System.out.println(Messages.YEAR_ADD);
                     int yearAdd = scanner.nextInt();
                     System.out.println(Messages.MONTH_ADD);
                     int monthAdd = scanner.nextInt();
                     System.out.println(Messages.DAY_ADD);
                     int dayAdd = scanner.nextInt();
-                    bookCreate.setDateAddedToTheLibrary(yearAdd,monthAdd,dayAdd);
+                    documentCreate.setDateAddedToTheLibrary(yearAdd, monthAdd, dayAdd);
                     System.out.println(Messages.YEAR_MOD);
                     int yearMod = scanner.nextInt();
                     System.out.println(Messages.MONTH_MOD);
                     int monthMod = scanner.nextInt();
                     System.out.println(Messages.DAY_MOD);
                     int dayMod = scanner.nextInt();
-                    bookCreate.setDateOfModification(yearMod,monthMod,dayMod);
-                    bookControllerInterface.createBook(bookCreate);
+                    documentCreate.setDateOfModification(yearMod, monthMod, dayMod);
+                    documentsControllerInterface.createDocument(documentCreate);
                     break;
                 case "2":
-                    Book bookDelete = new Book();
+                    Document DocDelete = new Document();
                     System.out.println(Messages.ID);
                     int id = scanner.nextInt();
-                    bookDelete.setId(id);
-                    bookControllerInterface.deleteBook(bookDelete);
+                    DocDelete.setId(id);
+                    documentsControllerInterface.deleteDocument(DocDelete);
                     break;
                 case "3":
                     System.out.println(Messages.NAME);
-                    String nameBook = scanner.nextLine();
-                    bookControllerInterface.searchBookName(nameBook);
+                    String nameDoc = scanner.nextLine();
+                    documentsControllerInterface.searchDocumentName(nameDoc);
                     System.out.println(Messages.CREATE);
                     System.out.println(Messages.DELETE);
                     System.out.println(Messages.SEARCH);
@@ -76,20 +72,20 @@ public class RunBook implements RunInterface {
                     System.out.println(Messages.EXIT);
                     break;
                 case "4":
-                    Book bookUpdate = new Book();
+                    Document docUpdate = new Document();
                     System.out.println(Messages.ID);
                     int idUpdateBook = scanner.nextInt();
-                    bookUpdate.setId(idUpdateBook);
-                    bookControllerInterface.updateBook(bookUpdate);
+                    docUpdate.setId(idUpdateBook);
+                    documentsControllerInterface.updateDocument(docUpdate);
                     break;
                 case "5":
-                    bookControllerInterface.showContent();
+                    documentsControllerInterface.showContent();
                     System.out.println(Messages.VARIANTS);
                     break;
                 case "exit":
                     b = false;
                     break;
-                    default:
+                default:
                     System.out.println(Messages.VARIANTS);
 
 
@@ -98,5 +94,3 @@ public class RunBook implements RunInterface {
     }
 
 }
-
-

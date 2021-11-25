@@ -8,6 +8,11 @@ public class Literature {
     private LocalDate  dateOfModification ;
 
 
+    public Literature(){
+
+    }
+
+
 
     public Literature(int id, String name, String location,
                       int yearAdd, int monthAdd, int dayAdd,
@@ -57,8 +62,8 @@ public class Literature {
         return dateOfModification;
     }
 
-    public void setDateOfModification(LocalDate dateOfModification) {
-        this.dateOfModification = dateOfModification;
+    public void setDateOfModification(int yearMod, int monthMod, int dayMod) {
+        this.dateOfModification =  LocalDate.of(yearMod,monthMod,dayMod);
     }
 
 

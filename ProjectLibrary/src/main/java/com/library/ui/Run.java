@@ -1,15 +1,13 @@
 package com.library.ui;
 
-import com.library.domain.ControllerInterfaces.PersonControllerInterface;
-import com.library.domain.Controllers.PersonController;
-import com.library.domain.models.Messages;
+import com.library.domain.models.messages.Messages;
 
 import java.util.Scanner;
 
 public class Run {
-    RunInterface runInterface = new RunBook();
-    PersonControllerInterface personControllerInterface = new PersonController();
-    Scanner sc = new Scanner(System.in);
+    RunInterface runInterfaceBook = new RunBook();
+    RunInterface runInterfaceDoc = new RunDocument();
+     Scanner sc = new Scanner(System.in);
 
     void run(){
 
@@ -22,8 +20,10 @@ public class Run {
             String s = sc.nextLine();
             switch (s) {
                 case "1":
-                    runInterface.show();
+                    runInterfaceBook.show();
                     break;
+                case "2":
+                    runInterfaceDoc.show();
             }
         }
 

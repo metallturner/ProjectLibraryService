@@ -6,7 +6,9 @@ public class Document extends Literature {
     private LocalDate dateOfDocumentCreation;
     private String documentNumber;
 
+public Document(){
 
+}
     public Document(int id, String name, String documentNumber, String location,
                     int yearCreate, int monthCreate, int dayCreate,
                     int yearAdd, int monthAdd, int dayAdd,
@@ -22,6 +24,14 @@ public class Document extends Literature {
 
     public void setDateOfDocumentCreation(int yearCreate, int monthCreate, int dayCreate) {
         this.dateOfDocumentCreation = LocalDate.of(yearCreate, monthCreate, dayCreate);
+    }
+
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
+
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
     }
 
     public static Document toCreateDocument(int id, String name, String documentNumber, String location,

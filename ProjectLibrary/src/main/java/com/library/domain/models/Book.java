@@ -1,15 +1,15 @@
 package com.library.domain.models;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 
 public class Book extends Literature {
     private LocalDate dateOfPublication;
     private String isbn;
     private String author;
 
-
-
+    public Book(){
+    }
     public Book(int id, String name, String isbn, String author, String location,
                 int yearPub, int monthPub, int dayPub,
                 int yearAdd, int monthAdd, int dayAdd,
