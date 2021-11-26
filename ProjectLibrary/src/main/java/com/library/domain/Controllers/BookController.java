@@ -9,14 +9,14 @@ public class BookController implements BookControllerInterface {
 
 
 
-    public void createBook(Book bookCreate) {
-       bookDaoInterface.createBook(bookCreate);
+    public void createBook(Book book) {
+       bookDaoInterface.createBook(book);
     }
     public void searchBookName(String name) {
         bookDaoInterface.searchBookName(name);
     }
-    public void deleteBook(Book bookDelete){
-        bookDaoInterface.deleteBook(bookDelete);
+    public void deleteBook(Book book){
+        bookDaoInterface.deleteBook(book);
     }
     public void showContent(){
         bookDaoInterface.showContent();

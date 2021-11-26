@@ -4,6 +4,10 @@ public class PatentDocument extends Literature {
     private String author;
     private String patentNumber;
 
+    public PatentDocument(){
+
+    }
+
 
     public PatentDocument(int id, String name, String patentNumber, String author, String location,
                           int yearAdd, int monthAdd, int dayAdd,

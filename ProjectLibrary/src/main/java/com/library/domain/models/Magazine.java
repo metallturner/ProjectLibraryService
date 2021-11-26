@@ -4,7 +4,9 @@ import java.time.LocalDate;
 
 public class Magazine extends Literature {
     private LocalDate dateOfPublication;
+public Magazine(){
 
+}
 
     public Magazine(int id, String name, String location,
                     int yearPub, int monthPub, int dayPub,

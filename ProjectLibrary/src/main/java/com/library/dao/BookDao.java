@@ -12,6 +12,7 @@ import java.util.*;
 
 public class BookDao implements BookDaoInterface {
     private final String PATH = "src/main/resources/Books.txt";
+    private final String PATH1 = "src/main/resources/Books1.txt";
 
     Scanner sc1 = new Scanner(System.in);
     Scanner sc2 = new Scanner(System.in);
@@ -30,7 +31,7 @@ public class BookDao implements BookDaoInterface {
             System.out.println("Книг нет, файл пустой(поиск)");
             return;
         }
-        File file = new File("src/main/resources/Books.txt");
+        File file = new File(PATH);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -39,7 +40,7 @@ public class BookDao implements BookDaoInterface {
                     return;
                 }
             }
-            System.out.println("такой книги нет");
+            System.out.println("такой книги нет(поиск)");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -56,7 +57,7 @@ public class BookDao implements BookDaoInterface {
         }
         try {
             Scanner file = new Scanner(new File(PATH));
-            PrintWriter writer = new PrintWriter("src/main/resources/Books1.txt");
+            PrintWriter writer = new PrintWriter(PATH1);
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(LocalDate.class, new SerializerDate())
                     .create();
@@ -71,12 +72,12 @@ public class BookDao implements BookDaoInterface {
             file.close();
             writer.close();
             File file1 = new File(PATH);
-            File file2 = new File("src/main/resources/Books1.txt");
+            File file2 = new File(PATH1);
             file1.delete();
             file2.renameTo(file1);
 
         } catch (FileNotFoundException ex) {
-            System.out.println("Файла нет или не найден");
+            System.out.println("Файла нет или не найден(книги)");
         }
 
     }
@@ -92,7 +93,7 @@ public class BookDao implements BookDaoInterface {
                 System.out.println(scanner.nextLine());
             }
         } catch (FileNotFoundException s) {
-            System.out.println("Файла нет или не найден");
+            System.out.println("Файла нет или не найден(книги)");
         }
     }
     @Override
@@ -108,7 +109,7 @@ public class BookDao implements BookDaoInterface {
         try {
 
             Scanner file = new Scanner(new File(PATH));
-            PrintWriter writer = new PrintWriter("src/main/resources/Books1.txt");
+            PrintWriter writer = new PrintWriter(PATH1);
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(LocalDate.class, new SerializerDate())
                     .create();
@@ -129,12 +130,12 @@ public class BookDao implements BookDaoInterface {
             file.close();
             writer.close();
             File file1 = new File(PATH);
-            File file2 = new File("src/main/resources/Books1.txt");
+            File file2 = new File(PATH1);
             file1.delete();
             file2.renameTo(file1);
 
         } catch (FileNotFoundException ex) {
-            System.out.println("Файла нет или не найден");
+            System.out.println("Файла нет или не найден(книги)");
         }
     }
 
@@ -230,7 +231,7 @@ public class BookDao implements BookDaoInterface {
             pw.write(gson.toJson(book));
             pw.write("\n");
         } catch (IOException e) {
-            System.out.println("файл не найден или не существует");
+            System.out.println("файл не найден или не существует(книги)");
         }
     }
 
@@ -239,7 +240,7 @@ public class BookDao implements BookDaoInterface {
         try (BufferedReader br = new BufferedReader(new FileReader(file1))) {
             return br.readLine() == null;
         } catch (IOException e) {
-            System.out.println("Файла нет или не найден");
+            System.out.println("Файла нет или не найден(книги)");
         }
         return true;
     }
@@ -270,7 +271,7 @@ public class BookDao implements BookDaoInterface {
         try {
 
             Scanner file = new Scanner(new File(PATH));
-            PrintWriter writer = new PrintWriter("src/main/resources/Books1.txt");
+            PrintWriter writer = new PrintWriter(PATH1);
 
             while (file.hasNext()) {
                 String line = file.nextLine();
@@ -282,7 +283,7 @@ public class BookDao implements BookDaoInterface {
             file.close();
             writer.close();
             File file1 = new File(PATH);
-            File file2 = new File("src/main/resources/Books1.txt");
+            File file2 = new File(PATH1);
             file1.delete();
             file2.renameTo(file1);
 

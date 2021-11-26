@@ -2,8 +2,9 @@ package com.library.dao;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.library.dao.interfaces.DocumentsDaoInterface;
+import com.library.dao.interfaces.PatentDocumentsDaoInterface;
 import com.library.domain.models.Document;
+import com.library.domain.models.PatentDocument;
 import com.library.domain.models.messages.Messages;
 import com.library.ui.Gson.SerializerDate;
 
@@ -11,25 +12,26 @@ import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class DocumentDao implements DocumentsDaoInterface {
-    private final String PATH = "src/main/resources/Documents.txt";
-    private final String PATH1 = "src/main/resources/Documents1.txt";
+public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
+
+    private final String PATH = "src/main/resources/PatentDocuments.txt";
+    private final String PATH1 = "src/main/resources/PatentDocuments1.txt";
 
     Scanner sc1 = new Scanner(System.in);
     Scanner sc2 = new Scanner(System.in);
 
 
     @Override
-    public void createDocument(Document document) {
-        writeToFile(document);
+    public void createPatentDocument(PatentDocument patentDocument) {
+        writeToFile(patentDocument);
         optimizeFile();
 
     }
 
     @Override
-    public void searchDocumentName(String name) {
+    public void searchPatentDocumentName(String name) {
         if (isEmptyFile()) {
-            System.out.println("Документов нет, файл пустой(поиск)");
+            System.out.println("Патентов нет, файл пустой(поиск)");
             return;
         }
         File file = new File(PATH);
@@ -41,20 +43,20 @@ public class DocumentDao implements DocumentsDaoInterface {
                     return;
                 }
             }
-            System.out.println("такого документа нет(поиск)");
+            System.out.println("такого патента нет(поиск)");
         } catch (FileNotFoundException e) {
-            System.out.println("Файла нет или не найден(документы)");
+            System.out.println("Файла нет или не найден(патенты)");
         }
     }
 
     @Override
-    public void deleteDocument(Document document) {
+    public void deletePatentDocument(PatentDocument patentDocument) {
         if (isEmptyFile()) {
-            System.out.println("Документов нет, файл пустой(удаление)");
+            System.out.println("Патентов нет, файл пустой(удаление)");
             return;
         }
-        if (itemAvailability(document) == -1) {
-            System.out.println("Документа с таким ID нет");
+        if (itemAvailability(patentDocument) == -1) {
+            System.out.println("Патента с таким ID нет");
             return;
         }
         try {
@@ -65,8 +67,8 @@ public class DocumentDao implements DocumentsDaoInterface {
                     .create();
             while (file.hasNextLine()) {
                 String line = file.nextLine();
-                Document document1 = gson.fromJson(line, Document.class);
-                if (document.getId() != document1.getId()) {
+                PatentDocument patentDocument1 = gson.fromJson(line, PatentDocument.class);
+                if (patentDocument.getId() != patentDocument1.getId()) {
                     writer.write(line);
                     writer.write("\n");
                 }
@@ -79,7 +81,7 @@ public class DocumentDao implements DocumentsDaoInterface {
             file2.renameTo(file1);
 
         } catch (FileNotFoundException ex) {
-            System.out.println("Файла нет или не найден(документы)");
+            System.out.println("Файла нет или не найден(патенты)");
         }
 
     }
@@ -87,7 +89,7 @@ public class DocumentDao implements DocumentsDaoInterface {
     @Override
     public void showContent() {
         if (isEmptyFile()) {
-            System.out.println("Документов нет, файл пустой(показ всех документов)");
+            System.out.println("Патентов нет, файл пустой(показ всех патентов)");
             return;
         }
         File file = new File(PATH);
@@ -96,18 +98,18 @@ public class DocumentDao implements DocumentsDaoInterface {
                 System.out.println(scanner.nextLine());
             }
         } catch (FileNotFoundException s) {
-            System.out.println("Файла нет или не найден(документы)");
+            System.out.println("Файла нет или не найден(патенты)");
         }
     }
 
     @Override
-    public void updateDocument(Document document) {
+    public void updatePatentDocument(PatentDocument patentDocument) {
         if (isEmptyFile()) {
-            System.out.println("Документов нет, файл пустой(редактирование)");
+            System.out.println("Патентов нет, файл пустой(редактирование)");
             return;
         }
-        if (itemAvailability(document) == -1) {
-            System.out.println("Документа с таким ID нет");
+        if (itemAvailability(patentDocument) == -1) {
+            System.out.println("Патента с таким ID нет");
             return;
         }
         try {
@@ -117,17 +119,17 @@ public class DocumentDao implements DocumentsDaoInterface {
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(LocalDate.class, new SerializerDate())
                     .create();
-            Document updateDocument;
+            PatentDocument updatePatentDocument;
             while (file.hasNextLine()) {
                 String line = file.nextLine();
-                Document document1 = gson.fromJson(line, Document.class);
-                if (document.getId() != document1.getId()) {
+                PatentDocument patentDocument1 = gson.fromJson(line, PatentDocument.class);
+                if (patentDocument.getId() != patentDocument1.getId()) {
                     writer.write(line);
                     writer.write("\n");
                 }
-                if (document.getId() == document1.getId()) {
-                    updateDocument = gson.fromJson(line, Document.class);
-                    writer.write(gson.toJson(updateDocumentFromJason(updateDocument)));
+                if (patentDocument.getId() == patentDocument1.getId()) {
+                    updatePatentDocument = gson.fromJson(line, PatentDocument.class);
+                    writer.write(gson.toJson(updateDocumentFromJason(updatePatentDocument)));
                     writer.write("\n");
                 }
             }
@@ -139,60 +141,56 @@ public class DocumentDao implements DocumentsDaoInterface {
             file2.renameTo(file1);
 
         } catch (FileNotFoundException ex) {
-            System.out.println("Файла нет или не найден(документы)");
+            System.out.println("Файла нет или не найден(патенты)");
         }
     }
 
 
-    private int itemAvailability(Document document) {
+    private int itemAvailability(PatentDocument patentDocument) {
         try (Scanner file = new Scanner(new File(PATH))) {
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(LocalDate.class, new SerializerDate())
                     .create();
             while (file.hasNextLine()) {
                 String line = file.nextLine();
-                Document document1 = gson.fromJson(line, Document.class);
-                if (document.getId() == document1.getId()) {
+                PatentDocument patentDocument1 = gson.fromJson(line, PatentDocument.class);
+                if (patentDocument.getId() == patentDocument1.getId()) {
                     return 1;
                 }
             }
 
         } catch (FileNotFoundException e) {
-            System.out.println("Файла нет или не найден(документы)");
+            System.out.println("Файла нет или не найден(патенты)");
         }
         return -1;
     }
 
-    private Document updateDocumentFromJason(Document document) {
+    private PatentDocument updateDocumentFromJason(PatentDocument patentDocument) {
         boolean b = true;
         while (b) {
-            System.out.println(document);
-            System.out.println(Messages.UPDATE_FOR_DOCS);
+            System.out.println(patentDocument);
+            System.out.println(Messages.UPDATE_FOR_PATENT_DOCS);
             String s = sc1.nextLine();
             switch (s) {
                 case "1":
                     System.out.println(Messages.NAME);
                     String name = sc2.nextLine();
-                    document.setName(name);
+                    patentDocument.setName(name);
                     break;
                 case "2":
                     System.out.println(Messages.NUMBER_DOC);
                     String number = sc2.nextLine();
-                    document.setDocumentNumber(number);
+                    patentDocument.setPatentNumber(number);
                     break;
                 case "3":
-                    System.out.println(Messages.LOCATION);
-                    String location = sc2.nextLine();
-                    document.setLocation(location);
+                    System.out.println(Messages.AUTHOR);
+                    String author = sc2.nextLine();
+                    patentDocument.setAuthor(author);
                     break;
                 case "4":
-                    System.out.println(Messages.YEAR_CREATE);
-                    int yearCre = sc2.nextInt();
-                    System.out.println(Messages.MONTH_CREATE);
-                    int monthCre = sc2.nextInt();
-                    System.out.println(Messages.DAY_CREATE);
-                    int dayCre = sc2.nextInt();
-                    document.setDateOfDocumentCreation(yearCre, monthCre, dayCre);
+                    System.out.println(Messages.LOCATION);
+                    String location = sc2.nextLine();
+                    patentDocument.setLocation(location);
                     break;
                 case "5":
                     System.out.println(Messages.YEAR_ADD);
@@ -201,7 +199,7 @@ public class DocumentDao implements DocumentsDaoInterface {
                     int monthAdd = sc2.nextInt();
                     System.out.println(Messages.DAY_ADD);
                     int dayAdd = sc2.nextInt();
-                    document.setDateAddedToTheLibrary(yearAdd, monthAdd, dayAdd);
+                    patentDocument.setDateAddedToTheLibrary(yearAdd, monthAdd, dayAdd);
                     break;
                 case "6":
                     System.out.println(Messages.YEAR_MOD);
@@ -210,27 +208,27 @@ public class DocumentDao implements DocumentsDaoInterface {
                     int monthMod = sc2.nextInt();
                     System.out.println(Messages.DAY_MOD);
                     int dayMod = sc2.nextInt();
-                    document.setDateAddedToTheLibrary(yearMod, monthMod, dayMod);
+                    patentDocument.setDateAddedToTheLibrary(yearMod, monthMod, dayMod);
                     break;
                 case "exit":
                     b = false;
                     break;
             }
         }
-        return document;
+        return patentDocument;
     }
 
-    private void writeToFile(Document document) {
-        document.setId(autoIncrementId());
+    private void writeToFile(PatentDocument patentDocument) {
+        patentDocument.setId(autoIncrementId());
         File file = new File(PATH);
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new SerializerDate())
                 .create();
         try (FileWriter pw = new FileWriter(file, true)) {
-            pw.write(gson.toJson(document));
+            pw.write(gson.toJson(patentDocument));
             pw.write("\n");
         } catch (IOException e) {
-            System.out.println("Файла нет или не найден(документы)");
+            System.out.println("Файла нет или не найден(патенты)");
         }
     }
 
@@ -239,7 +237,7 @@ public class DocumentDao implements DocumentsDaoInterface {
         try (BufferedReader br = new BufferedReader(new FileReader(file1))) {
             return br.readLine() == null;
         } catch (IOException e) {
-            System.out.println("Файла нет или не найден(документы)");
+            System.out.println("Файла нет или не найден(патенты)");
         }
         return true;
     }
@@ -255,13 +253,13 @@ public class DocumentDao implements DocumentsDaoInterface {
                 .create();
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
-                Document document = gson.fromJson(scanner.nextLine(), Document.class);
-                if (document.getId() >= x) {
-                    x = document.getId();
+                PatentDocument patentDocument = gson.fromJson(scanner.nextLine(), PatentDocument.class);
+                if (patentDocument.getId() >= x) {
+                    x = patentDocument.getId();
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Файла нет или не найден(документы)");
+            System.out.println("Файла нет или не найден(патенты)");
         }
         return x + 1;
     }
@@ -287,7 +285,7 @@ public class DocumentDao implements DocumentsDaoInterface {
             file2.renameTo(file1);
 
         } catch (FileNotFoundException ex) {
-            System.out.println("Файла нет или не найден(документы)");
+            System.out.println("Файла нет или не найден(патенты)");
         }
     }
 }

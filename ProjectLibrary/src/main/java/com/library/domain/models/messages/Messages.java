@@ -25,11 +25,12 @@ public enum Messages {
     YEAR_MOD("Введите год изменения в библиотеке"),
     MONTH_MOD("Введите месяц изменения в библиотеке"),
     DAY_MOD("Введите день изменения в библиотеке"),
-    BOOKS("BOOKS press 1"),
-    DOCUMENTS("DOCUMENTS press 2"),
-    PATENT_DOCUMENTS("PATENT DOCUMENTS press 3"),
-    MAGAZINES("MAGAZINES press 4"),
-    USERS("USERS press 5"),
+    BOOKS("-BOOKS press 1"),
+    FINISH_PROGRAM("-TO END THE PROGRAM, ENTER Exit"),
+    DOCUMENTS("-DOCUMENTS press 2"),
+    PATENT_DOCUMENTS("-PATENT DOCUMENTS press 3"),
+    MAGAZINES("-MAGAZINES press 4"),
+    USERS("-USERS press 5"),
     VARIANTS("--------------------------\n" +
             "Для создания нажмите 1\n" +
             "Для удаления нажмите 2\n" +
@@ -52,6 +53,21 @@ public enum Messages {
             "2. Номер документа\n" +
             "3. Локация\n" +
             "4. Дату создания\n" +
+            "5. Дату добавления в библиотеку\n" +
+            "6. Дату изменения в библиотеке\n" +
+            "Для выхода наберите exit"),
+    UPDATE_FOR_MAGAZINES("Какой параметр вы хотите изменить?:\n" +
+            "1. Имя\n" +
+            "2. Локация\n" +
+            "3. Дату публикации\n" +
+            "4. Дату добавления в библиотеку\n" +
+            "5. Дату изменения в библиотеке\n" +
+            "Для выхода наберите exit"),
+    UPDATE_FOR_PATENT_DOCS("Какой параметр вы хотите изменить?:\n" +
+            "1. Имя\n" +
+            "2. Номер документа\n" +
+            "3. Автор\n" +
+            "4. Локация\n" +
             "5. Дату добавления в библиотеку\n" +
             "6. Дату изменения в библиотеке\n" +
             "Для выхода наберите exit");
