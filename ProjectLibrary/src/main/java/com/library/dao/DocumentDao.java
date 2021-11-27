@@ -6,12 +6,14 @@ import com.library.dao.interfaces.DocumentsDaoInterface;
 import com.library.domain.models.Document;
 import com.library.domain.models.messages.Messages;
 import com.library.ui.Gson.SerializerDate;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class DocumentDao implements DocumentsDaoInterface {
+    private static final Logger log = Logger.getLogger(DocumentDao.class);
     private final String PATH = "src/main/resources/Documents.txt";
     private final String PATH1 = "src/main/resources/Documents1.txt";
 
@@ -30,6 +32,7 @@ public class DocumentDao implements DocumentsDaoInterface {
     public void searchDocumentName(String name) {
         if (isEmptyFile()) {
             System.out.println("Документов нет, файл пустой(поиск)");
+            log.error("Документов нет, файл пустой(поиск)");
             return;
         }
         File file = new File(PATH);
@@ -42,8 +45,10 @@ public class DocumentDao implements DocumentsDaoInterface {
                 }
             }
             System.out.println("такого документа нет(поиск)");
+            log.error("такого документа нет(поиск)");
         } catch (FileNotFoundException e) {
             System.out.println("Файла нет или не найден(документы)");
+            log.error("Файла нет или не найден(документы)");
         }
     }
 
@@ -51,10 +56,12 @@ public class DocumentDao implements DocumentsDaoInterface {
     public void deleteDocument(Document document) {
         if (isEmptyFile()) {
             System.out.println("Документов нет, файл пустой(удаление)");
+            log.error("Документов нет, файл пустой(удаление)");
             return;
         }
         if (itemAvailability(document) == -1) {
             System.out.println("Документа с таким ID нет");
+            log.error("Документа с таким ID нет");
             return;
         }
         try {
@@ -80,6 +87,7 @@ public class DocumentDao implements DocumentsDaoInterface {
 
         } catch (FileNotFoundException ex) {
             System.out.println("Файла нет или не найден(документы)");
+            log.error("Файла нет или не найден(документы)");
         }
 
     }
@@ -88,6 +96,7 @@ public class DocumentDao implements DocumentsDaoInterface {
     public void showContent() {
         if (isEmptyFile()) {
             System.out.println("Документов нет, файл пустой(показ всех документов)");
+            log.error("Документов нет, файл пустой(показ всех документов)");
             return;
         }
         File file = new File(PATH);
@@ -97,6 +106,7 @@ public class DocumentDao implements DocumentsDaoInterface {
             }
         } catch (FileNotFoundException s) {
             System.out.println("Файла нет или не найден(документы)");
+            log.error("Файла нет или не найден(документы)");
         }
     }
 
@@ -104,10 +114,12 @@ public class DocumentDao implements DocumentsDaoInterface {
     public void updateDocument(Document document) {
         if (isEmptyFile()) {
             System.out.println("Документов нет, файл пустой(редактирование)");
+            log.error("Документов нет, файл пустой(редактирование)");
             return;
         }
         if (itemAvailability(document) == -1) {
             System.out.println("Документа с таким ID нет");
+            log.error("Документа с таким ID нет");
             return;
         }
         try {
@@ -140,6 +152,7 @@ public class DocumentDao implements DocumentsDaoInterface {
 
         } catch (FileNotFoundException ex) {
             System.out.println("Файла нет или не найден(документы)");
+            log.error("Файла нет или не найден(документы)");
         }
     }
 
@@ -159,6 +172,7 @@ public class DocumentDao implements DocumentsDaoInterface {
 
         } catch (FileNotFoundException e) {
             System.out.println("Файла нет или не найден(документы)");
+            log.error("Файла нет или не найден(документы)");
         }
         return -1;
     }
@@ -231,6 +245,7 @@ public class DocumentDao implements DocumentsDaoInterface {
             pw.write("\n");
         } catch (IOException e) {
             System.out.println("Файла нет или не найден(документы)");
+            log.error("Файла нет или не найден(документы)");
         }
     }
 
@@ -240,6 +255,7 @@ public class DocumentDao implements DocumentsDaoInterface {
             return br.readLine() == null;
         } catch (IOException e) {
             System.out.println("Файла нет или не найден(документы)");
+            log.error("Файла нет или не найден(документы)");
         }
         return true;
     }
@@ -262,6 +278,7 @@ public class DocumentDao implements DocumentsDaoInterface {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Файла нет или не найден(документы)");
+            log.error("Файла нет или не найден(документы)");
         }
         return x + 1;
     }
@@ -288,6 +305,7 @@ public class DocumentDao implements DocumentsDaoInterface {
 
         } catch (FileNotFoundException ex) {
             System.out.println("Файла нет или не найден(документы)");
+            log.error("Файла нет или не найден(документы)");
         }
     }
 }

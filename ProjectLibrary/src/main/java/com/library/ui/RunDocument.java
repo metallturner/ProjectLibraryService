@@ -4,10 +4,12 @@ import com.library.domain.ControllerInterfaces.DocumentsControllerInterface;
 import com.library.domain.Controllers.DocumentController;
 import com.library.domain.models.Document;
 import com.library.domain.models.messages.Messages;
+import org.apache.log4j.Logger;
 
 import java.util.Scanner;
 
 public class RunDocument implements RunInterface {
+    private static final Logger log = Logger.getLogger(RunDocument.class);
     @Override
     public void show() {
         DocumentsControllerInterface documentsControllerInterface = new DocumentController();
@@ -52,6 +54,7 @@ public class RunDocument implements RunInterface {
                     int dayMod = scanner.nextInt();
                     documentCreate.setDateOfModification(yearMod, monthMod, dayMod);
                     documentsControllerInterface.createDocument(documentCreate);
+                    log.info("Был добавлен документ " + documentCreate.getName());
                     break;
                 case "2":
                     Document DocDelete = new Document();
@@ -59,6 +62,7 @@ public class RunDocument implements RunInterface {
                     int id = scanner.nextInt();
                     DocDelete.setId(id);
                     documentsControllerInterface.deleteDocument(DocDelete);
+                    log.info("Был удален документ с ID " + DocDelete.getId());
                     break;
                 case "3":
                     System.out.println(Messages.NAME);
@@ -77,6 +81,7 @@ public class RunDocument implements RunInterface {
                     int idUpdateBook = scanner.nextInt();
                     docUpdate.setId(idUpdateBook);
                     documentsControllerInterface.updateDocument(docUpdate);
+                    log.info("Были произведены изменения в документе с ID " + docUpdate.getId());
                     break;
                 case "5":
                     documentsControllerInterface.showContent();

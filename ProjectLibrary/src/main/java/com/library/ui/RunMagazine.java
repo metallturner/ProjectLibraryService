@@ -3,10 +3,12 @@ import com.library.domain.ControllerInterfaces.MagazineControllerInterface;
 import com.library.domain.Controllers.MagazineController;
 import com.library.domain.models.Magazine;
 import com.library.domain.models.messages.Messages;
+import org.apache.log4j.Logger;
 
 import java.util.Scanner;
 
 public class RunMagazine implements RunInterface {
+    private static final Logger log = Logger.getLogger(RunMagazine.class);
     @Override
     public void show() {
         MagazineControllerInterface MagazineControllerInterface = new MagazineController();
@@ -48,6 +50,7 @@ public class RunMagazine implements RunInterface {
                     int dayMod = scanner.nextInt();
                     magazineCreate.setDateOfModification(yearMod, monthMod, dayMod);
                     MagazineControllerInterface.createMagazine(magazineCreate);
+                    log.info("Был добавлен журнал с именем " + magazineCreate.getName());
                     break;
                 case "2":
                     Magazine magazineDelete = new Magazine();
@@ -55,6 +58,7 @@ public class RunMagazine implements RunInterface {
                     int id = scanner.nextInt();
                     magazineDelete.setId(id);
                     MagazineControllerInterface.deleteMagazine(magazineDelete);
+                    log.info("Был удален журнал с ID " + magazineDelete.getId());
                     break;
                 case "3":
                     System.out.println(Messages.NAME);
@@ -73,6 +77,7 @@ public class RunMagazine implements RunInterface {
                     int idUpdateMagazine = scanner.nextInt();
                     magazineUpdate.setId(idUpdateMagazine);
                     MagazineControllerInterface.updateMagazine(magazineUpdate);
+                    log.info("Были произведены изменения в журнале с ID " + magazineUpdate.getId());
                     break;
                 case "5":
                     MagazineControllerInterface.showContent();

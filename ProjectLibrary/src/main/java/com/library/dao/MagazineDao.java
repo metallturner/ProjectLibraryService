@@ -7,12 +7,14 @@ import com.library.dao.interfaces.MagazineDaoInterface;
 import com.library.domain.models.Magazine;
 import com.library.domain.models.messages.Messages;
 import com.library.ui.Gson.SerializerDate;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class MagazineDao implements MagazineDaoInterface {
+    private static final Logger log = Logger.getLogger(Magazine.class);
     private final String PATH = "src/main/resources/Magazines";
     private final String PATH1 = "src/main/resources/Magazines1";
 
@@ -31,6 +33,7 @@ public class MagazineDao implements MagazineDaoInterface {
     public void searchMagazineName(String name) {
         if (isEmptyFile()) {
             System.out.println("Журналов нет, файл пустой(поиск)");
+            log.error("Журналов нет, файл пустой(поиск)");
             return;
         }
         File file = new File(PATH);
@@ -43,8 +46,10 @@ public class MagazineDao implements MagazineDaoInterface {
                 }
             }
             System.out.println("такого журнала нет(поиск)");
+            log.error("такого журнала нет(поиск)");
         } catch (FileNotFoundException e) {
             System.out.println("Файла нет или не найден(журналы)");
+            log.error("Файла нет или не найден(журналы)");
         }
     }
 
@@ -52,10 +57,12 @@ public class MagazineDao implements MagazineDaoInterface {
     public void deleteMagazine(Magazine magazine) {
         if (isEmptyFile()) {
             System.out.println("Журналов нет, файл пустой(удаление)");
+            log.error("Журналов нет, файл пустой(удаление)");
             return;
         }
         if (itemAvailability(magazine) == -1) {
             System.out.println("Журнала с таким ID нет");
+            log.error("Журнала с таким ID нет");
             return;
         }
         try {
@@ -81,6 +88,7 @@ public class MagazineDao implements MagazineDaoInterface {
 
         } catch (FileNotFoundException ex) {
             System.out.println("Файла нет или не найден(журналы)");
+            log.error("Файла нет или не найден(журналы)");
         }
 
     }
@@ -89,6 +97,7 @@ public class MagazineDao implements MagazineDaoInterface {
     public void showContent() {
         if (isEmptyFile()) {
             System.out.println("Журналов нет, файл пустой(показ всех журналов)");
+            log.error("Журналов нет, файл пустой(показ всех журналов)");
             return;
         }
         File file = new File(PATH);
@@ -98,6 +107,7 @@ public class MagazineDao implements MagazineDaoInterface {
             }
         } catch (FileNotFoundException s) {
             System.out.println("Файла нет или не найден(журналы)");
+            log.error("Файла нет или не найден(журналы)");
         }
     }
 
@@ -105,10 +115,12 @@ public class MagazineDao implements MagazineDaoInterface {
     public void updateMagazine(Magazine magazine) {
         if (isEmptyFile()) {
             System.out.println("Журналов нет, файл пустой(редактирование)");
+            log.error("Журналов нет, файл пустой(редактирование)");
             return;
         }
         if (itemAvailability(magazine) == -1) {
             System.out.println("Журнала с таким ID нет");
+            log.error("Журнала с таким ID нет");
             return;
         }
         try {
@@ -141,6 +153,7 @@ public class MagazineDao implements MagazineDaoInterface {
 
         } catch (FileNotFoundException ex) {
             System.out.println("Файла нет или не найден(журналы)");
+            log.error("Файла нет или не найден(журналы)");
         }
     }
 
@@ -160,6 +173,7 @@ public class MagazineDao implements MagazineDaoInterface {
 
         } catch (FileNotFoundException e) {
             System.out.println("Файла нет или не найден(журналы)");
+            log.error("Файла нет или не найден(журналы)");
         }
         return -1;
     }
@@ -227,6 +241,7 @@ public class MagazineDao implements MagazineDaoInterface {
             pw.write("\n");
         } catch (IOException e) {
             System.out.println("Файла нет или не найден(журналы)");
+            log.error("Файла нет или не найден(журналы)");
         }
     }
 
@@ -236,6 +251,7 @@ public class MagazineDao implements MagazineDaoInterface {
             return br.readLine() == null;
         } catch (IOException e) {
             System.out.println("Файла нет или не найден(журналы)");
+            log.error("Файла нет или не найден(журналы)");
         }
         return true;
     }
@@ -258,6 +274,7 @@ public class MagazineDao implements MagazineDaoInterface {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Файла нет или не найден(журналы)");
+            log.error("Файла нет или не найден(журналы)");
         }
         return x + 1;
     }
@@ -284,6 +301,7 @@ public class MagazineDao implements MagazineDaoInterface {
 
         } catch (FileNotFoundException ex) {
             System.out.println("Файла нет или не найден(журналы)");
+            log.error("Файла нет или не найден(журналы)");
         }
     }
 }

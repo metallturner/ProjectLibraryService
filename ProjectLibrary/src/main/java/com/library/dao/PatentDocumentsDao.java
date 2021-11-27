@@ -3,16 +3,17 @@ package com.library.dao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.library.dao.interfaces.PatentDocumentsDaoInterface;
-import com.library.domain.models.Document;
 import com.library.domain.models.PatentDocument;
 import com.library.domain.models.messages.Messages;
 import com.library.ui.Gson.SerializerDate;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
+    private static final Logger log = Logger.getLogger(PatentDocumentsDao.class);
 
     private final String PATH = "src/main/resources/PatentDocuments.txt";
     private final String PATH1 = "src/main/resources/PatentDocuments1.txt";
@@ -32,6 +33,7 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
     public void searchPatentDocumentName(String name) {
         if (isEmptyFile()) {
             System.out.println("Патентов нет, файл пустой(поиск)");
+            log.error("Патентов нет, файл пустой(поиск)");
             return;
         }
         File file = new File(PATH);
@@ -44,8 +46,10 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
                 }
             }
             System.out.println("такого патента нет(поиск)");
+            log.error("такого патента нет(поиск)");
         } catch (FileNotFoundException e) {
             System.out.println("Файла нет или не найден(патенты)");
+            log.error("Файла нет или не найден(патенты)");
         }
     }
 
@@ -53,10 +57,12 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
     public void deletePatentDocument(PatentDocument patentDocument) {
         if (isEmptyFile()) {
             System.out.println("Патентов нет, файл пустой(удаление)");
+            log.error("Патентов нет, файл пустой(удаление)");
             return;
         }
         if (itemAvailability(patentDocument) == -1) {
             System.out.println("Патента с таким ID нет");
+            log.error("Патента с таким ID нет");
             return;
         }
         try {
@@ -82,6 +88,7 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
 
         } catch (FileNotFoundException ex) {
             System.out.println("Файла нет или не найден(патенты)");
+            log.error("Файла нет или не найден(патенты)");
         }
 
     }
@@ -90,6 +97,7 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
     public void showContent() {
         if (isEmptyFile()) {
             System.out.println("Патентов нет, файл пустой(показ всех патентов)");
+            log.error("Патентов нет, файл пустой(показ всех патентов)");
             return;
         }
         File file = new File(PATH);
@@ -99,6 +107,7 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
             }
         } catch (FileNotFoundException s) {
             System.out.println("Файла нет или не найден(патенты)");
+            log.error("Файла нет или не найден(патенты)");
         }
     }
 
@@ -106,10 +115,12 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
     public void updatePatentDocument(PatentDocument patentDocument) {
         if (isEmptyFile()) {
             System.out.println("Патентов нет, файл пустой(редактирование)");
+            log.error("Патентов нет, файл пустой(редактирование)");
             return;
         }
         if (itemAvailability(patentDocument) == -1) {
             System.out.println("Патента с таким ID нет");
+            log.error("Патента с таким ID нет");
             return;
         }
         try {
@@ -142,6 +153,7 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
 
         } catch (FileNotFoundException ex) {
             System.out.println("Файла нет или не найден(патенты)");
+            log.error("Файла нет или не найден(патенты)");
         }
     }
 
@@ -161,6 +173,7 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
 
         } catch (FileNotFoundException e) {
             System.out.println("Файла нет или не найден(патенты)");
+            log.error("Файла нет или не найден(патенты)");
         }
         return -1;
     }
@@ -229,6 +242,7 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
             pw.write("\n");
         } catch (IOException e) {
             System.out.println("Файла нет или не найден(патенты)");
+            log.error("Файла нет или не найден(патенты)");
         }
     }
 
@@ -238,6 +252,7 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
             return br.readLine() == null;
         } catch (IOException e) {
             System.out.println("Файла нет или не найден(патенты)");
+            log.error("Файла нет или не найден(патенты)");
         }
         return true;
     }
@@ -260,6 +275,7 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Файла нет или не найден(патенты)");
+            log.error("Файла нет или не найден(патенты)");
         }
         return x + 1;
     }
@@ -286,6 +302,7 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
 
         } catch (FileNotFoundException ex) {
             System.out.println("Файла нет или не найден(патенты)");
+            log.error("Файла нет или не найден(патенты)");
         }
     }
 }

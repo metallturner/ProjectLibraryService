@@ -3,10 +3,12 @@ import com.library.domain.ControllerInterfaces.PatentDocumentsControllerInterfac
 import com.library.domain.Controllers.PatentDocumentsController;
 import com.library.domain.models.PatentDocument;
 import com.library.domain.models.messages.Messages;
+import org.apache.log4j.Logger;
 
 import java.util.Scanner;
 
 public class RunPatentDocuments implements RunInterface{
+    private static final Logger log = Logger.getLogger(RunPatentDocuments.class);
     @Override
     public void show() {
         PatentDocumentsControllerInterface PatentDocumentsControllerInterface = new PatentDocumentsController();
@@ -44,6 +46,7 @@ public class RunPatentDocuments implements RunInterface{
                     int dayMod = scanner.nextInt();
                     patentDocumentCreate.setDateOfModification(yearMod, monthMod, dayMod);
                     PatentDocumentsControllerInterface.createPatentDocument(patentDocumentCreate);
+                    log.info("Был создан патент с именем " + patentDocumentCreate.getName());
                     break;
                 case "2":
                     PatentDocument patentDocumentDelete = new PatentDocument();
@@ -51,6 +54,7 @@ public class RunPatentDocuments implements RunInterface{
                     int id = scanner.nextInt();
                     patentDocumentDelete.setId(id);
                     PatentDocumentsControllerInterface.deletePatentDocument(patentDocumentDelete);
+                    log.info("Был удален патент с ID " + patentDocumentDelete.getId());
                     break;
                 case "3":
                     System.out.println(Messages.NAME);
@@ -69,6 +73,7 @@ public class RunPatentDocuments implements RunInterface{
                     int idUpdateBook = scanner.nextInt();
                     patentDocumentUpdate.setId(idUpdateBook);
                     PatentDocumentsControllerInterface.updatePatentDocument(patentDocumentUpdate);
+                    log.info("Были произведены измененения в патенте с ID " + patentDocumentUpdate.getId());
                     break;
                 case "5":
                     PatentDocumentsControllerInterface.showContent();

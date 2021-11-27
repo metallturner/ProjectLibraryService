@@ -5,12 +5,14 @@ import com.library.dao.interfaces.BookDaoInterface;
 import com.library.domain.models.Book;
 import com.library.domain.models.messages.Messages;
 import com.library.ui.Gson.SerializerDate;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 
 public class BookDao implements BookDaoInterface {
+    private static final Logger log = Logger.getLogger(BookDao.class);
     private final String PATH = "src/main/resources/Books.txt";
     private final String PATH1 = "src/main/resources/Books1.txt";
 
@@ -29,6 +31,7 @@ public class BookDao implements BookDaoInterface {
     public void searchBookName(String name) {
         if (isEmptyFile()) {
             System.out.println("Книг нет, файл пустой(поиск)");
+            log.error("Книг нет, файл пустой(поиск)");
             return;
         }
         File file = new File(PATH);
@@ -41,18 +44,21 @@ public class BookDao implements BookDaoInterface {
                 }
             }
             System.out.println("такой книги нет(поиск)");
+            log.error("такой книги нет(поиск)");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            log.error("Файла нет или не найден(книги)");
         }
     }
     @Override
     public void deleteBook(Book book) {
         if (isEmptyFile()) {
             System.out.println("Книг нет, файл пустой(удаление)");
+            log.error("Книг нет, файл пустой(поиск)");
             return;
         }
         if (itemAvailability(book) == -1) {
             System.out.println("Книги с таким ID нет");
+            log.error("Книги с таким ID нет");
             return;
         }
         try {
@@ -77,7 +83,7 @@ public class BookDao implements BookDaoInterface {
             file2.renameTo(file1);
 
         } catch (FileNotFoundException ex) {
-            System.out.println("Файла нет или не найден(книги)");
+            log.error("Файла нет или не найден(книги)");
         }
 
     }
@@ -85,6 +91,7 @@ public class BookDao implements BookDaoInterface {
     public void showContent() {
         if (isEmptyFile()) {
             System.out.println("Книг нет, файл пустой(показ всех книг)");
+            log.error("Книг нет, файл пустой(показ всех книг)");
             return;
         }
         File file = new File(PATH);
@@ -94,16 +101,20 @@ public class BookDao implements BookDaoInterface {
             }
         } catch (FileNotFoundException s) {
             System.out.println("Файла нет или не найден(книги)");
+            log.error("Файла нет или не найден(книги)");
+
         }
     }
     @Override
     public void updateBook(Book book) {
         if (isEmptyFile()) {
             System.out.println("Книг нет, файл пустой(редактирование)");
+            log.error("Книг нет, файл пустой(редактирование)");
             return;
         }
         if (itemAvailability(book) == -1) {
             System.out.println("Книги с таким ID нет");
+            log.error("Книги с таким ID нет");
             return;
         }
         try {
@@ -136,6 +147,7 @@ public class BookDao implements BookDaoInterface {
 
         } catch (FileNotFoundException ex) {
             System.out.println("Файла нет или не найден(книги)");
+            log.error("Файла нет или не найден(книги)");
         }
     }
 
@@ -154,7 +166,7 @@ public class BookDao implements BookDaoInterface {
             }
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            log.error("Файла нет или не найден(книги)");
         }
         return -1;
     }
@@ -231,7 +243,7 @@ public class BookDao implements BookDaoInterface {
             pw.write(gson.toJson(book));
             pw.write("\n");
         } catch (IOException e) {
-            System.out.println("файл не найден или не существует(книги)");
+            log.error("Файла нет или не найден(книги)");
         }
     }
 
@@ -262,7 +274,7 @@ public class BookDao implements BookDaoInterface {
                 }
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            log.error("Файла нет или не найден(книги)");
         }
         return x + 1;
     }
@@ -288,7 +300,7 @@ public class BookDao implements BookDaoInterface {
             file2.renameTo(file1);
 
         } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
+            log.error("Файла нет или не найден(книги)");
         }
     }
 }

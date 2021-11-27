@@ -4,10 +4,12 @@ import com.library.domain.ControllerInterfaces.BookControllerInterface;
 import com.library.domain.Controllers.BookController;
 import com.library.domain.models.Book;
 import com.library.domain.models.messages.Messages;
+import org.apache.log4j.Logger;
 
 import java.util.Scanner;
 
 public class RunBook implements RunInterface {
+    private static final Logger log = Logger.getLogger(RunBook.class);
     BookControllerInterface bookControllerInterface = new BookController();
     Scanner scanner = new Scanner(System.in);
 
@@ -56,6 +58,7 @@ public class RunBook implements RunInterface {
                     int dayMod = scanner.nextInt();
                     bookCreate.setDateOfModification(yearMod,monthMod,dayMod);
                     bookControllerInterface.createBook(bookCreate);
+                    log.info("Была добавлена книга " + bookCreate.getName());
                     break;
                 case "2":
                     Book bookDelete = new Book();
@@ -63,6 +66,7 @@ public class RunBook implements RunInterface {
                     int id = scanner.nextInt();
                     bookDelete.setId(id);
                     bookControllerInterface.deleteBook(bookDelete);
+                    log.info("Была удалена книга c ID " + bookDelete.getId());
                     break;
                 case "3":
                     System.out.println(Messages.NAME);
@@ -81,6 +85,7 @@ public class RunBook implements RunInterface {
                     int idUpdateBook = scanner.nextInt();
                     bookUpdate.setId(idUpdateBook);
                     bookControllerInterface.updateBook(bookUpdate);
+                    log.info("Были произведены изменения в книге c ID " + bookUpdate.getId());
                     break;
                 case "5":
                     bookControllerInterface.showContent();
