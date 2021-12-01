@@ -1,17 +1,28 @@
 package com.library.ui;
+
 import com.library.domain.ControllerInterfaces.PatentDocumentsControllerInterface;
 import com.library.domain.Controllers.PatentDocumentsController;
 import com.library.domain.models.PatentDocument;
 import com.library.domain.models.messages.Messages;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-public class RunPatentDocuments implements RunInterface{
+@Component
+public class RunPatentDocuments implements RunInterface {
     private static final Logger log = Logger.getLogger(RunPatentDocuments.class);
+    PatentDocumentsControllerInterface PatentDocumentsControllerInterface;
+
+    @Autowired
+    public RunPatentDocuments(@Qualifier("patentDocumentsController") PatentDocumentsControllerInterface patentDocumentsControllerInterface) {
+        PatentDocumentsControllerInterface = patentDocumentsControllerInterface;
+    }
+
     @Override
     public void show() {
-        PatentDocumentsControllerInterface PatentDocumentsControllerInterface = new PatentDocumentsController();
         Scanner scanner = new Scanner(System.in);
         System.out.println(Messages.VARIANTS);
 

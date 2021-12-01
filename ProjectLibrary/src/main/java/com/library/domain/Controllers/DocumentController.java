@@ -4,7 +4,9 @@ import com.library.dao.DocumentDao;
 import com.library.dao.interfaces.DocumentsDaoInterface;
 import com.library.domain.ControllerInterfaces.DocumentsControllerInterface;
 import com.library.domain.models.Document;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DocumentController implements DocumentsControllerInterface {
     DocumentsDaoInterface documentsDaoInterface = new DocumentDao();
 

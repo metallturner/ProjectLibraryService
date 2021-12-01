@@ -3,7 +3,9 @@ import com.library.dao.BookDao;
 import com.library.dao.interfaces.BookDaoInterface;
 import com.library.domain.ControllerInterfaces.BookControllerInterface;
 import com.library.domain.models.Book;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BookController implements BookControllerInterface {
     BookDaoInterface bookDaoInterface = new BookDao();
 

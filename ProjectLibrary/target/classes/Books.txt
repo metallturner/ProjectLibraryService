@@ -1,3 +1,4 @@
-{"dateOfPublication":"1997-06-26","isbn":"какой то номер","author":"Джоан Роулинг","id":1,"name":"Гарри Поттер и философский камень","location":"Британия(вроде)","dateAddedToTheLibrary":"2021-11-27","dateOfModification":"2021-11-27"}
+{"dateOfPublication":"1997-06-26","isbn":"какой то номер","author":"Джоан Роулинг","id":1,"name":"Гарри Поттер и философский камень","location":"British","dateAddedToTheLibrary":"2021-11-27","dateOfModification":"2021-11-27"}
 {"dateOfPublication":"1998-07-02","isbn":"57575dfjfdjfj75757","author":"Джоан Роулинг","id":2,"name":"Гарри Поттер и тайная комната","location":"Британия","dateAddedToTheLibrary":"2021-11-27","dateOfModification":"2021-11-27"}
 {"dateOfPublication":"1999-07-08","isbn":"какой то номер","author":"Джоан Роулинг","id":3,"name":"Гарри Поттер и узник Азкабана","location":"Британия","dateAddedToTheLibrary":"2021-11-27","dateOfModification":"2021-11-27"}
+{"dateOfPublication":"0012-12-12","isbn":"123123","author":"Толкиен","id":4,"name":"властелин колец","location":"хз","dateAddedToTheLibrary":"0012-12-12","dateOfModification":"0012-12-12"}

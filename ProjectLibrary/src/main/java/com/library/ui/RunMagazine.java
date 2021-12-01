@@ -1,17 +1,27 @@
 package com.library.ui;
+
 import com.library.domain.ControllerInterfaces.MagazineControllerInterface;
-import com.library.domain.Controllers.MagazineController;
 import com.library.domain.models.Magazine;
 import com.library.domain.models.messages.Messages;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
 public class RunMagazine implements RunInterface {
     private static final Logger log = Logger.getLogger(RunMagazine.class);
+    MagazineControllerInterface MagazineControllerInterface;
+
+    @Autowired
+    public RunMagazine(@Qualifier("magazineController") MagazineControllerInterface magazineControllerInterface) {
+        MagazineControllerInterface = magazineControllerInterface;
+    }
+
     @Override
     public void show() {
-        MagazineControllerInterface MagazineControllerInterface = new MagazineController();
         Scanner scanner = new Scanner(System.in);
         System.out.println(Messages.VARIANTS);
 

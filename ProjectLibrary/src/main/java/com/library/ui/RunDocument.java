@@ -1,18 +1,26 @@
 package com.library.ui;
 
 import com.library.domain.ControllerInterfaces.DocumentsControllerInterface;
-import com.library.domain.Controllers.DocumentController;
 import com.library.domain.models.Document;
 import com.library.domain.models.messages.Messages;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-
+@Component
 public class RunDocument implements RunInterface {
     private static final Logger log = Logger.getLogger(RunDocument.class);
+    DocumentsControllerInterface documentsControllerInterface;
+@Autowired
+    public RunDocument(@Qualifier("documentController") DocumentsControllerInterface documentsControllerInterface) {
+        this.documentsControllerInterface = documentsControllerInterface;
+    }
+
     @Override
     public void show() {
-        DocumentsControllerInterface documentsControllerInterface = new DocumentController();
+
         Scanner scanner = new Scanner(System.in);
         System.out.println(Messages.VARIANTS);
 

@@ -3,7 +3,9 @@ import com.library.dao.PatentDocumentsDao;
 import com.library.dao.interfaces.PatentDocumentsDaoInterface;
 import com.library.domain.ControllerInterfaces.PatentDocumentsControllerInterface;
 import com.library.domain.models.PatentDocument;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PatentDocumentsController implements PatentDocumentsControllerInterface {
     PatentDocumentsDaoInterface patentDocumentsDaoInterface = new PatentDocumentsDao();
 

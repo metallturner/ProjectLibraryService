@@ -1,19 +1,18 @@
-package com.library.ui;
+package com.library.ui.Start;
 
 import com.library.domain.models.messages.Messages;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Scanner;
 
-public class Run {
-    RunInterface runInterfaceBook = new RunBook();
-    RunInterface runInterfaceDoc = new RunDocument();
-    RunInterface runInterfaceMag = new RunMagazine();
-    RunInterface runInterfacePatDocs = new RunPatentDocuments();
-    Scanner sc = new Scanner(System.in);
+public class Main {
 
-    void run() {
+    public static void main(String[] args) {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        Scanner sc = new Scanner(System.in);
         boolean b = true;
         while (b) {
+
             System.out.println(Messages.BOOKS);
             System.out.println(Messages.DOCUMENTS);
             System.out.println(Messages.PATENT_DOCUMENTS);
@@ -23,26 +22,21 @@ public class Run {
             String s = sc.nextLine();
             switch (s) {
                 case "1":
-                    runInterfaceBook.show();
+                context.getBean("runSpring", RunSpring.class).runBook();
                     break;
                 case "2":
-                    runInterfaceDoc.show();
+                    context.getBean("runSpring", RunSpring.class).runDoc();
                     break;
                 case "3":
-                    runInterfacePatDocs.show();
+                    context.getBean("runSpring", RunSpring.class).runPatent();
                     break;
                 case "4":
-                    runInterfaceMag.show();
+                    context.getBean("runSpring", RunSpring.class).runMag();
                     break;
             }
             if (s.equalsIgnoreCase("exit")){
                 return;
             }
         }
-
-
     }
-}
-
-
-
+ }

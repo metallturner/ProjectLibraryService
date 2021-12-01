@@ -5,12 +5,23 @@ import com.library.domain.Controllers.BookController;
 import com.library.domain.models.Book;
 import com.library.domain.models.messages.Messages;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
 public class RunBook implements RunInterface {
+
     private static final Logger log = Logger.getLogger(RunBook.class);
-    BookControllerInterface bookControllerInterface = new BookController();
+    BookControllerInterface bookControllerInterface;
+
+    @Autowired
+    public RunBook(@Qualifier("bookController") BookControllerInterface bookControllerInterface) {
+        this.bookControllerInterface = bookControllerInterface;
+    }
+
     Scanner scanner = new Scanner(System.in);
 
     @Override
@@ -42,21 +53,21 @@ public class RunBook implements RunInterface {
                     int monthPub = scanner.nextInt();
                     System.out.println(Messages.DAY_PUB);
                     int dayPub = scanner.nextInt();
-                    bookCreate.setDateOfPublication(yearPub,monthPub,dayPub);
+                    bookCreate.setDateOfPublication(yearPub, monthPub, dayPub);
                     System.out.println(Messages.YEAR_ADD);
                     int yearAdd = scanner.nextInt();
                     System.out.println(Messages.MONTH_ADD);
                     int monthAdd = scanner.nextInt();
                     System.out.println(Messages.DAY_ADD);
                     int dayAdd = scanner.nextInt();
-                    bookCreate.setDateAddedToTheLibrary(yearAdd,monthAdd,dayAdd);
+                    bookCreate.setDateAddedToTheLibrary(yearAdd, monthAdd, dayAdd);
                     System.out.println(Messages.YEAR_MOD);
                     int yearMod = scanner.nextInt();
                     System.out.println(Messages.MONTH_MOD);
                     int monthMod = scanner.nextInt();
                     System.out.println(Messages.DAY_MOD);
                     int dayMod = scanner.nextInt();
-                    bookCreate.setDateOfModification(yearMod,monthMod,dayMod);
+                    bookCreate.setDateOfModification(yearMod, monthMod, dayMod);
                     bookControllerInterface.createBook(bookCreate);
                     log.info("Была добавлена книга " + bookCreate.getName());
                     break;
@@ -94,7 +105,7 @@ public class RunBook implements RunInterface {
                 case "exit":
                     b = false;
                     break;
-                    default:
+                default:
                     System.out.println(Messages.VARIANTS);
 
 

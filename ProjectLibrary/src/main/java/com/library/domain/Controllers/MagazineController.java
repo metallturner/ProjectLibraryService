@@ -4,7 +4,9 @@ import com.library.dao.MagazineDao;
 import com.library.dao.interfaces.MagazineDaoInterface;
 import com.library.domain.ControllerInterfaces.MagazineControllerInterface;
 import com.library.domain.models.Magazine;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MagazineController implements MagazineControllerInterface {
     MagazineDaoInterface magazineDaoInterface = new MagazineDao();
 
