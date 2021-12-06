@@ -35,9 +35,9 @@ public class RunMagazine implements RunInterface {
                     System.out.println(Messages.NAME);
                     String name = scanner.nextLine();
                     magazineCreate.setName(name);
-                    System.out.println(Messages.LOCATION);
-                    String location = scanner.nextLine();
-                    magazineCreate.setLocation(location);
+                    System.out.println(Messages.ID_LOCATION);
+                    int locationId = scanner.nextInt();
+                    magazineCreate.setLocationId(locationId);
                     System.out.println(Messages.YEAR_PUB);
                     int yearPub = scanner.nextInt();
                     System.out.println(Messages.MONTH_PUB);

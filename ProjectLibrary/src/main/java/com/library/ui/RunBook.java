@@ -41,12 +41,12 @@ public class RunBook implements RunInterface {
                     System.out.println(Messages.ISBN);
                     String isbn = scanner.nextLine();
                     bookCreate.setIsbn(isbn);
-                    System.out.println(Messages.AUTHOR);
-                    String author = scanner.nextLine();
-                    bookCreate.setAuthor(author);
-                    System.out.println(Messages.LOCATION);
-                    String location = scanner.nextLine();
-                    bookCreate.setLocation(location);
+                    System.out.println(Messages.ID_AUTHOR);
+                    int authorId = scanner.nextInt();
+                    bookCreate.setAuthorId(authorId);
+                    System.out.println(Messages.ID_LOCATION);
+                    int locationId = scanner.nextInt();
+                    bookCreate.setLocationId(locationId);
                     System.out.println(Messages.YEAR_PUB);
                     int yearPub = scanner.nextInt();
                     System.out.println(Messages.MONTH_PUB);

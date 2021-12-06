@@ -2,20 +2,30 @@ package com.library.dao;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.library.dao.interfaces.ClassGetAuthorAndLocationInterface;
 import com.library.dao.interfaces.DocumentsDaoInterface;
+import com.library.domain.models.Book;
 import com.library.domain.models.Document;
 import com.library.domain.models.messages.Messages;
 import com.library.ui.Gson.SerializerDate;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
-
+@Component
 public class DocumentDao implements DocumentsDaoInterface {
     private static final Logger log = Logger.getLogger(DocumentDao.class);
     private final String PATH = "src/main/resources/Documents.txt";
     private final String PATH1 = "src/main/resources/Documents1.txt";
+    ClassGetAuthorAndLocationInterface classGetAuthorAndLocationInterface;
+    @Autowired
+    public DocumentDao(@Qualifier("classGetAuthorAndLocation") ClassGetAuthorAndLocationInterface classGetAuthorAndLocationInterface) {
+        this.classGetAuthorAndLocationInterface = classGetAuthorAndLocationInterface;
+    }
 
     Scanner sc1 = new Scanner(System.in);
     Scanner sc2 = new Scanner(System.in);
@@ -30,6 +40,9 @@ public class DocumentDao implements DocumentsDaoInterface {
 
     @Override
     public void searchDocumentName(String name) {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new SerializerDate())
+                .create();
         if (isEmptyFile()) {
             System.out.println("Документов нет, файл пустой(поиск)");
             log.error("Документов нет, файл пустой(поиск)");
@@ -39,8 +52,10 @@ public class DocumentDao implements DocumentsDaoInterface {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
+                Document document = gson.fromJson(line, Document.class);
                 if (line.contains(name)) {
-                    System.out.println(line);
+                    document.setLocation(classGetAuthorAndLocationInterface.getLocation(document.getLocationId()));
+                    System.out.println(document);
                     return;
                 }
             }
@@ -94,6 +109,9 @@ public class DocumentDao implements DocumentsDaoInterface {
 
     @Override
     public void showContent() {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new SerializerDate())
+                .create();
         if (isEmptyFile()) {
             System.out.println("Документов нет, файл пустой(показ всех документов)");
             log.error("Документов нет, файл пустой(показ всех документов)");
@@ -102,7 +120,9 @@ public class DocumentDao implements DocumentsDaoInterface {
         File file = new File(PATH);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
-                System.out.println(scanner.nextLine());
+                Document document = gson.fromJson(scanner.nextLine(), Document.class);
+                document.setLocation(classGetAuthorAndLocationInterface.getLocation(document.getLocationId()));
+                System.out.println(document);
             }
         } catch (FileNotFoundException s) {
             System.out.println("Файла нет или не найден(документы)");
@@ -195,9 +215,9 @@ public class DocumentDao implements DocumentsDaoInterface {
                     document.setDocumentNumber(number);
                     break;
                 case "3":
-                    System.out.println(Messages.LOCATION);
-                    String location = sc2.nextLine();
-                    document.setLocation(location);
+                    System.out.println(Messages.ID_LOCATION);
+                    int locationId = sc2.nextInt();
+                    document.setLocationId(locationId);
                     break;
                 case "4":
                     System.out.println(Messages.YEAR_CREATE);

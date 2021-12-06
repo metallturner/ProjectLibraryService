@@ -9,11 +9,11 @@ public class Document extends Literature {
 public Document(){
 
 }
-    public Document(int id, String name, String documentNumber, String location,
+    public Document(int id, String name, String documentNumber, int locationId,
                     int yearCreate, int monthCreate, int dayCreate,
                     int yearAdd, int monthAdd, int dayAdd,
                     int yearMod, int monthMod, int dayMod) {
-        super(id, name, location, yearAdd, monthAdd, dayAdd, yearMod, monthMod, dayMod);
+        super(id, name, locationId, yearAdd, monthAdd, dayAdd, yearMod, monthMod, dayMod);
         this.dateOfDocumentCreation = LocalDate.of(yearCreate, monthCreate, dayCreate);
         this.documentNumber = documentNumber;
     }
@@ -34,26 +34,17 @@ public Document(){
         this.documentNumber = documentNumber;
     }
 
-    public static Document toCreateDocument(int id, String name, String documentNumber, String location,
-                                            int yearCreate, int monthCreate, int dayCreate,
-                                            int yearAdd, int monthAdd, int dayAdd,
-                                            int yearMod, int monthMod, int dayMod) {
-
-        return new Document(id, name, documentNumber, location,
-                yearCreate, monthCreate, dayCreate,
-                yearAdd, monthAdd, dayAdd,
-                yearMod, monthMod, dayMod);
-    }
 
     @Override
     public String toString() {
-        return "Document{" +
-                "id=" + getId() + 
-                ", name='" + getName() + '\'' +
-                ", location='" + getLocation() + '\'' +
-                ", dateOfDocumentCreation=" + dateOfDocumentCreation +
-                ", dateAddedToTheLibrary=" + getDateAddedToTheLibrary() +
-                ", dateOfModification=" + getDateOfModification() +
+        return "Document{"+ "\n" +
+                "id = " + getId() + "\n"+
+                "name = '" + getName() + '\'' + "\n"+
+                "locationId = '" + getLocationId() + '\'' + "\n"+
+                "location = '" + getLocation() + '\''+ "\n" +
+                "dateOfDocumentCreation = " + dateOfDocumentCreation+ "\n" +
+                "dateAddedToTheLibrary = " + getDateAddedToTheLibrary()+ "\n" +
+                "dateOfModification = " + getDateOfModification() +
                 '}';
     }
 }

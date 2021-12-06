@@ -1,3 +1,1 @@
-{"patentNumber":"123-123-321","id":1,"name":"трехточечные ремни безопасности","location":"страна марки Volvo","dateAddedToTheLibrary":"2020-12-12","dateOfModification":"2021-12-12"}
-{"patentNumber":"еще какой то номер","id":3,"name":"еще какой то патент","location":"еще какая то страна","dateAddedToTheLibrary":"1996-12-12","dateOfModification":"2021-12-12"}
-{"patentNumber":"какой то номер","id":4,"name":"очень интересны патент","location":"Раша","dateAddedToTheLibrary":"2020-12-12","dateOfModification":"2021-12-12"}
+{"authorId":2,"patentNumber":"123321","id":1,"name":"Трехточечные ремни безопасности","dateAddedToTheLibrary":"0012-12-12","dateOfModification":"0012-12-12","locationId":2}

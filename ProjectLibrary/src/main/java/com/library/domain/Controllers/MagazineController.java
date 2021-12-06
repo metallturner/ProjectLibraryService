@@ -4,12 +4,18 @@ import com.library.dao.MagazineDao;
 import com.library.dao.interfaces.MagazineDaoInterface;
 import com.library.domain.ControllerInterfaces.MagazineControllerInterface;
 import com.library.domain.models.Magazine;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MagazineController implements MagazineControllerInterface {
-    MagazineDaoInterface magazineDaoInterface = new MagazineDao();
 
+    MagazineDaoInterface magazineDaoInterface;
+@Autowired
+    public MagazineController(@Qualifier("magazineDao") MagazineDaoInterface magazineDaoInterface) {
+        this.magazineDaoInterface = magazineDaoInterface;
+    }
 
     @Override
     public void createMagazine(Magazine magazine) {

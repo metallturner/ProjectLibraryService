@@ -37,9 +37,9 @@ public class RunDocument implements RunInterface {
                     System.out.println(Messages.NUMBER_DOC);
                     String docNumber = scanner.nextLine();
                     documentCreate.setDocumentNumber(docNumber);
-                    System.out.println(Messages.LOCATION);
-                    String location = scanner.nextLine();
-                    documentCreate.setLocation(location);
+                    System.out.println(Messages.ID_LOCATION);
+                    int locationId = scanner.nextInt();
+                    documentCreate.setLocationId(locationId);
                     System.out.println(Messages.YEAR_CREATE);
                     int yearCre = scanner.nextInt();
                     System.out.println(Messages.MONTH_CREATE);

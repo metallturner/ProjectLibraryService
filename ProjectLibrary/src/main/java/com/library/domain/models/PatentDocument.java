@@ -1,7 +1,8 @@
 package com.library.domain.models;
 
 public class PatentDocument extends Literature {
-    private String author;
+    private transient Author author;
+    private int authorId;
     private String patentNumber;
 
     public PatentDocument(){
@@ -9,19 +10,19 @@ public class PatentDocument extends Literature {
     }
 
 
-    public PatentDocument(int id, String name, String patentNumber, String author, String location,
+    public PatentDocument(int id, String name, String patentNumber, int authorId, int locationId,
                           int yearAdd, int monthAdd, int dayAdd,
                           int yearMod, int monthMod, int dayMod) {
-        super(id, name, location, yearAdd, monthAdd, dayAdd, yearMod, monthMod, dayMod);
-        this.author = author;
+        super(id, name, locationId, yearAdd, monthAdd, dayAdd, yearMod, monthMod, dayMod);
+        this.authorId = authorId;
         this.patentNumber = patentNumber;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
@@ -33,26 +34,26 @@ public class PatentDocument extends Literature {
         this.patentNumber = patentNumber;
     }
 
-    public static PatentDocument toCreatePatentDocument(int id, String name, String patentNumber,
-                                                        String author, String location,
-                                                        int yearAdd, int monthAdd, int dayAdd,
-                                                        int yearMod, int monthMod, int dayMod) {
+    public int getAuthorId() {
+        return authorId;
+    }
 
-        return new PatentDocument(id, name, patentNumber, author, location,
-                yearAdd, monthAdd, dayAdd,
-                yearMod, monthMod, dayMod);
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
     @Override
     public String toString() {
-        return "PatentDocument{" +
-                "id=" + getId() +
-                ", name='" + getName() + '\'' +
-                ", patentNumber='" + patentNumber + '\'' +
-                ", author='" + author + '\'' +
-                ", location='" + getLocation() + '\'' +
-                ", dateAddedToTheLibrary=" + getDateAddedToTheLibrary() +
-                ", dateOfModification=" + getDateOfModification() +
+        return "PatentDocument{" + "\n"+
+                "id = " + getId() + "\n"+
+                "name = '" + getName()+ "\n" + '\'' +
+                "patentNumber = '" + patentNumber + '\''+ "\n" +
+                "authorId = '" + authorId + '\'' + "\n"+
+                "author = '" + author + '\''+ "\n" +
+                "locationId = '" + getLocationId() + '\''+ "\n" +
+                "location = '" + getLocation() + '\'' + "\n"+
+                "dateAddedToTheLibrary = " + getDateAddedToTheLibrary()+ "\n" +
+                "dateOfModification = " + getDateOfModification() +
                 '}';
     }
 }

@@ -4,15 +4,17 @@ import java.time.LocalDate;
 
 public class Magazine extends Literature {
     private LocalDate dateOfPublication;
-public Magazine(){
 
-}
+    public Magazine() {
 
-    public Magazine(int id, String name, String location,
+    }
+
+
+    public Magazine(int id, String name, int locationId,
                     int yearPub, int monthPub, int dayPub,
                     int yearAdd, int monthAdd, int dayAdd,
                     int yearMod, int monthMod, int dayMod) {
-        super(id, name, location, yearAdd, monthAdd, dayAdd, yearMod, monthMod, dayMod);
+        super(id, name, locationId, yearAdd, monthAdd, dayAdd, yearMod, monthMod, dayMod);
         this.dateOfPublication = LocalDate.of(yearPub, monthPub, dayPub);
     }
 
@@ -24,26 +26,18 @@ public Magazine(){
         this.dateOfPublication = LocalDate.of(yearPub, monthPub, dayPub);
     }
 
-    public static Magazine toCreateMagazine(int id, String name, String location,
-                                            int yearPub, int monthPub, int dayPub,
-                                            int yearAdd, int monthAdd, int dayAdd,
-                                            int yearMod, int monthMod, int dayMod) {
 
-        return new Magazine(id, name, location,
-                yearPub, monthPub, dayPub,
-                yearAdd, monthAdd, dayAdd,
-                yearMod, monthMod, dayMod);
-    }
 
     @Override
     public String toString() {
-        return "Magazine{" +
-                "id=" + getId() +
-                ", name='" + getName() + '\'' +
-                ", location='" + getLocation() + '\'' +
-                ", dateOfPublication=" + dateOfPublication +
-                ", dateAddedToTheLibrary=" + getDateAddedToTheLibrary() +
-                ", dateOfModification=" + getDateOfModification() +
+        return "Magazine{"+ "\n" +
+                "id = " + getId() + "\n"+
+                "name = '" + getName() + '\''+ "\n" +
+                "locationId = '" + getLocationId() + '\''+ "\n" +
+                "location = '" + getLocation() + '\''+ "\n" +
+                "dateOfPublication = " + dateOfPublication + "\n"+
+                "dateAddedToTheLibrary = " + getDateAddedToTheLibrary()+ "\n" +
+                "dateOfModification = " + getDateOfModification() +
                 '}';
     }
 }

@@ -1,2 +1,1 @@
-{"dateOfDocumentCreation":"2000-05-05","documentNumber":"какой то номер 123","id":1,"name":"какой то документ","location":"Раша","dateAddedToTheLibrary":"2021-01-01","dateOfModification":"2021-01-01"}
-{"dateOfDocumentCreation":"2021-12-01","documentNumber":"еще какой то номер","id":2,"name":"еще какой то документ","location":"Белоруссия","dateAddedToTheLibrary":"2021-01-01","dateOfModification":"2021-01-01"}
+{"dateOfDocumentCreation":"0012-12-12","documentNumber":"12","id":1,"name":"doc","dateAddedToTheLibrary":"0012-12-12","dateOfModification":"0012-12-12","locationId":1}

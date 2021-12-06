@@ -8,11 +8,16 @@ public enum Messages {
     CONTENT("Для показа всех книг 5"),
     EXIT("Для выхода наберите Exit"),
     ID("Введите ID"),
+    ID_AUTHOR("Введите ID автора"),
+    ID_LOCATION("Введите ID локации"),
     NUMBER_DOC("Введите номер документа"),
     NAME("Введите название"),
     ISBN("Введите ISBN книги"),
-    AUTHOR("Введите автора"),
+    AUTHOR("Введите имя автора"),
     LOCATION("Введите локацию"),
+    LOCATION_NAME("Введите имя(страну)"),
+    LOCATION_CITY("Введите город"),
+    LOCATION_STATE("Введите штат"),
     YEAR_PUB("Введите год публикации"),
     MONTH_PUB("Введите месяц публикации"),
     DAY_PUB("Введите день публикации"),
@@ -31,6 +36,8 @@ public enum Messages {
     PATENT_DOCUMENTS("-PATENT DOCUMENTS press 3"),
     MAGAZINES("-MAGAZINES press 4"),
     USERS("-USERS press 5"),
+    AUTHORS("-AUTHORS press 6"),
+    LOCATIONS("-LOCATIONS press 7"),
     VARIANTS("--------------------------\n" +
             "Для создания нажмите 1\n" +
             "Для удаления нажмите 2\n" +
@@ -55,6 +62,14 @@ public enum Messages {
             "4. Дату создания\n" +
             "5. Дату добавления в библиотеку\n" +
             "6. Дату изменения в библиотеке\n" +
+            "Для выхода наберите exit"),
+    UPDATE_FOR_AUTHORS("Какой параметр вы хотите изменить?:\n" +
+            "1. Имя\n" +
+            "Для выхода наберите exit"),
+    UPDATE_FOR_LOCATIONS("Какой параметр вы хотите изменить?:\n" +
+            "1. Имя(страну)\n" +
+            "2. Город\n" +
+            "3. Штат\n" +
             "Для выхода наберите exit"),
     UPDATE_FOR_MAGAZINES("Какой параметр вы хотите изменить?:\n" +
             "1. Имя\n" +

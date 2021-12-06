@@ -39,9 +39,12 @@ public class RunPatentDocuments implements RunInterface {
                     System.out.println(Messages.NUMBER_DOC);
                     String docNumber = scanner.nextLine();
                     patentDocumentCreate.setPatentNumber(docNumber);
-                    System.out.println(Messages.LOCATION);
-                    String location = scanner.nextLine();
-                    patentDocumentCreate.setLocation(location);
+                    System.out.println(Messages.ID_LOCATION);
+                    int locationID = scanner.nextInt();
+                    patentDocumentCreate.setLocationId(locationID);
+                    System.out.println(Messages.ID_AUTHOR);
+                    int authorID = scanner.nextInt();
+                    patentDocumentCreate.setAuthorId(authorID);
                     System.out.println(Messages.YEAR_ADD);
                     int yearAdd = scanner.nextInt();
                     System.out.println(Messages.MONTH_ADD);

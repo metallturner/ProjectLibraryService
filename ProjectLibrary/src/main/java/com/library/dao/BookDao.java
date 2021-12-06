@@ -2,19 +2,30 @@ package com.library.dao;
 
 import com.google.gson.*;
 import com.library.dao.interfaces.BookDaoInterface;
+import com.library.dao.interfaces.ClassGetAuthorAndLocationInterface;
 import com.library.domain.models.Book;
 import com.library.domain.models.messages.Messages;
 import com.library.ui.Gson.SerializerDate;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 
+@Component
 public class BookDao implements BookDaoInterface {
     private static final Logger log = Logger.getLogger(BookDao.class);
     private final String PATH = "src/main/resources/Books.txt";
     private final String PATH1 = "src/main/resources/Books1.txt";
+    ClassGetAuthorAndLocationInterface classGetAuthorAndLocationInterface;
+
+    @Autowired
+    public BookDao(@Qualifier("classGetAuthorAndLocation") ClassGetAuthorAndLocationInterface classGetAuthorAndLocationInterface) {
+        this.classGetAuthorAndLocationInterface = classGetAuthorAndLocationInterface;
+    }
 
     Scanner sc1 = new Scanner(System.in);
     Scanner sc2 = new Scanner(System.in);
@@ -29,6 +40,9 @@ public class BookDao implements BookDaoInterface {
 
     @Override
     public void searchBookName(String name) {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new SerializerDate())
+                .create();
         if (isEmptyFile()) {
             System.out.println("Книг нет, файл пустой(поиск)");
             log.error("Книг нет, файл пустой(поиск)");
@@ -38,8 +52,12 @@ public class BookDao implements BookDaoInterface {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
+                Book book = gson.fromJson(line, Book.class);
+
                 if (line.contains(name)) {
-                    System.out.println(line);
+                    book.setAuthor(classGetAuthorAndLocationInterface.getAuthor(book.getAuthorId()));
+                    book.setLocation(classGetAuthorAndLocationInterface.getLocation(book.getLocationId()));
+                    System.out.println(book);
                     return;
                 }
             }
@@ -49,6 +67,7 @@ public class BookDao implements BookDaoInterface {
             log.error("Файла нет или не найден(книги)");
         }
     }
+
     @Override
     public void deleteBook(Book book) {
         if (isEmptyFile()) {
@@ -87,8 +106,12 @@ public class BookDao implements BookDaoInterface {
         }
 
     }
+
     @Override
     public void showContent() {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new SerializerDate())
+                .create();
         if (isEmptyFile()) {
             System.out.println("Книг нет, файл пустой(показ всех книг)");
             log.error("Книг нет, файл пустой(показ всех книг)");
@@ -97,7 +120,10 @@ public class BookDao implements BookDaoInterface {
         File file = new File(PATH);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
-                System.out.println(scanner.nextLine());
+                Book book = gson.fromJson(scanner.nextLine(), Book.class);
+                book.setAuthor(classGetAuthorAndLocationInterface.getAuthor(book.getAuthorId()));
+                book.setLocation(classGetAuthorAndLocationInterface.getLocation(book.getLocationId()));
+                System.out.println(book);
             }
         } catch (FileNotFoundException s) {
             System.out.println("Файла нет или не найден(книги)");
@@ -105,6 +131,7 @@ public class BookDao implements BookDaoInterface {
 
         }
     }
+
     @Override
     public void updateBook(Book book) {
         if (isEmptyFile()) {
@@ -189,14 +216,14 @@ public class BookDao implements BookDaoInterface {
                     book.setIsbn(isbn);
                     break;
                 case "3":
-                    System.out.println(Messages.AUTHOR);
-                    String author = sc2.nextLine();
-                    book.setAuthor(author);
+                    System.out.println(Messages.ID_AUTHOR);
+                    int authorId = sc2.nextInt();
+                    book.setAuthorId(authorId);
                     break;
                 case "4":
-                    System.out.println(Messages.LOCATION);
-                    String location = sc2.nextLine();
-                    book.setLocation(location);
+                    System.out.println(Messages.ID_LOCATION);
+                    int locationId = sc2.nextInt();
+                    book.setLocationId(locationId);
                     break;
                 case "5":
                     System.out.println(Messages.YEAR_PUB);

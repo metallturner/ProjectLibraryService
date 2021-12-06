@@ -4,11 +4,17 @@ import com.library.dao.DocumentDao;
 import com.library.dao.interfaces.DocumentsDaoInterface;
 import com.library.domain.ControllerInterfaces.DocumentsControllerInterface;
 import com.library.domain.models.Document;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DocumentController implements DocumentsControllerInterface {
-    DocumentsDaoInterface documentsDaoInterface = new DocumentDao();
+    DocumentsDaoInterface documentsDaoInterface;
+@Autowired
+    public DocumentController(@Qualifier("documentDao") DocumentsDaoInterface documentsDaoInterface) {
+        this.documentsDaoInterface = documentsDaoInterface;
+    }
 
     @Override
     public void createDocument(Document document) {

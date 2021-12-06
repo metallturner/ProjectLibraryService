@@ -2,16 +2,21 @@ package com.library.dao;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.library.dao.interfaces.ClassGetAuthorAndLocationInterface;
 import com.library.dao.interfaces.PatentDocumentsDaoInterface;
+import com.library.domain.models.Book;
 import com.library.domain.models.PatentDocument;
 import com.library.domain.models.messages.Messages;
 import com.library.ui.Gson.SerializerDate;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
-
+@Component
 public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
     private static final Logger log = Logger.getLogger(PatentDocumentsDao.class);
 
@@ -20,6 +25,12 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
 
     Scanner sc1 = new Scanner(System.in);
     Scanner sc2 = new Scanner(System.in);
+    ClassGetAuthorAndLocationInterface classGetAuthorAndLocationInterface;
+    @Autowired
+    public PatentDocumentsDao(@Qualifier("classGetAuthorAndLocation") ClassGetAuthorAndLocationInterface classGetAuthorAndLocationInterface) {
+        this.classGetAuthorAndLocationInterface = classGetAuthorAndLocationInterface;
+    }
+
 
 
     @Override
@@ -31,6 +42,9 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
 
     @Override
     public void searchPatentDocumentName(String name) {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new SerializerDate())
+                .create();
         if (isEmptyFile()) {
             System.out.println("Патентов нет, файл пустой(поиск)");
             log.error("Патентов нет, файл пустой(поиск)");
@@ -40,8 +54,12 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
+                PatentDocument patentDocument = gson.fromJson(line, PatentDocument.class);
+
                 if (line.contains(name)) {
-                    System.out.println(line);
+                    patentDocument.setAuthor(classGetAuthorAndLocationInterface.getAuthor(patentDocument.getAuthorId()));
+                    patentDocument.setLocation(classGetAuthorAndLocationInterface.getLocation(patentDocument.getLocationId()));
+                    System.out.println(patentDocument);
                     return;
                 }
             }
@@ -95,6 +113,9 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
 
     @Override
     public void showContent() {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new SerializerDate())
+                .create();
         if (isEmptyFile()) {
             System.out.println("Патентов нет, файл пустой(показ всех патентов)");
             log.error("Патентов нет, файл пустой(показ всех патентов)");
@@ -103,7 +124,10 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
         File file = new File(PATH);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
-                System.out.println(scanner.nextLine());
+                PatentDocument patentDocument = gson.fromJson(scanner.nextLine(), PatentDocument.class);
+                patentDocument.setAuthor(classGetAuthorAndLocationInterface.getAuthor(patentDocument.getAuthorId()));
+                patentDocument.setLocation(classGetAuthorAndLocationInterface.getLocation(patentDocument.getLocationId()));
+                System.out.println(patentDocument);
             }
         } catch (FileNotFoundException s) {
             System.out.println("Файла нет или не найден(патенты)");
@@ -196,14 +220,14 @@ public class PatentDocumentsDao implements PatentDocumentsDaoInterface {
                     patentDocument.setPatentNumber(number);
                     break;
                 case "3":
-                    System.out.println(Messages.AUTHOR);
-                    String author = sc2.nextLine();
-                    patentDocument.setAuthor(author);
+                    System.out.println(Messages.ID_AUTHOR);
+                    int authorId = sc2.nextInt();
+                    patentDocument.setAuthorId(authorId);
                     break;
                 case "4":
-                    System.out.println(Messages.LOCATION);
-                    String location = sc2.nextLine();
-                    patentDocument.setLocation(location);
+                    System.out.println(Messages.ID_LOCATION);
+                    int locationId = sc2.nextInt();
+                    patentDocument.setLocationId(locationId);
                     break;
                 case "5":
                     System.out.println(Messages.YEAR_ADD);

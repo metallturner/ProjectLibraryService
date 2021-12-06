@@ -3,9 +3,10 @@ import java.time.LocalDate;
 public class Literature {
     private int id;
     private String name;
-    private String  location;
+    private transient Location location;
     private LocalDate dateAddedToTheLibrary;
     private LocalDate  dateOfModification ;
+    private int locationId;
 
 
     public Literature(){
@@ -14,13 +15,13 @@ public class Literature {
 
 
 
-    public Literature(int id, String name, String location,
+    public Literature(int id, String name, int locationId,
                       int yearAdd, int monthAdd, int dayAdd,
                       int yearMod, int monthMod, int dayMod) {
 
         this.id = id;
         this.name = name;
-        this.location = location;
+        this.locationId = locationId;
         this.dateAddedToTheLibrary = LocalDate.of(yearAdd,monthAdd,dayAdd);
         this.dateOfModification = LocalDate.of(yearMod,monthMod,dayMod);
     }
@@ -41,14 +42,21 @@ public class Literature {
         this.name = name;
     }
 
-    public String getLocation() {
+    public int getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
+    }
+
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
-
 
     public LocalDate getDateAddedToTheLibrary() {
         return dateAddedToTheLibrary;

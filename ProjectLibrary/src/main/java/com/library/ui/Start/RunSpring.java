@@ -11,15 +11,23 @@ public class RunSpring {
     RunInterface runInterfaceDoc;
     RunInterface runInterfacePatent;
     RunInterface runInterfaceMag;
-@Autowired
-    public RunSpring(@Qualifier("runBook")RunInterface runInterfaceBook,
-                     @Qualifier("runDocument")RunInterface runInterfaceDoc,
-                     @Qualifier("runPatentDocuments")RunInterface runInterfacePatent,
-                     @Qualifier("runMagazine")RunInterface runInterfaceMag) {
+    RunInterface runInterfaceAuthors;
+    RunInterface runInterfaceLocation;
+
+
+    @Autowired
+    public RunSpring(@Qualifier("runBook") RunInterface runInterfaceBook,
+                     @Qualifier("runDocument") RunInterface runInterfaceDoc,
+                     @Qualifier("runAuthor") RunInterface runInterfaceAuthors,
+                     @Qualifier("runPatentDocuments") RunInterface runInterfacePatent,
+                     @Qualifier("runMagazine") RunInterface runInterfaceMag,
+                     @Qualifier("runLocation") RunInterface runInterfaceLocation) {
         this.runInterfaceBook = runInterfaceBook;
         this.runInterfaceDoc = runInterfaceDoc;
         this.runInterfacePatent = runInterfacePatent;
         this.runInterfaceMag = runInterfaceMag;
+        this.runInterfaceAuthors = runInterfaceAuthors;
+        this.runInterfaceLocation = runInterfaceLocation;
     }
 
     void runBook() {
@@ -39,6 +47,14 @@ public class RunSpring {
 
     void runMag() {
         runInterfaceMag.show();
+
+    }
+    void runAuthors() {
+        runInterfaceAuthors.show();
+
+    }
+    void runLocations() {
+        runInterfaceLocation.show();
 
     }
 }

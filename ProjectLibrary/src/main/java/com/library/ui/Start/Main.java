@@ -18,6 +18,8 @@ public class Main {
             System.out.println(Messages.PATENT_DOCUMENTS);
             System.out.println(Messages.MAGAZINES);
             System.out.println(Messages.USERS);
+            System.out.println(Messages.AUTHORS);
+            System.out.println(Messages.LOCATIONS);
             System.out.println(Messages.FINISH_PROGRAM);
             String s = sc.nextLine();
             switch (s) {
@@ -32,6 +34,12 @@ public class Main {
                     break;
                 case "4":
                     context.getBean("runSpring", RunSpring.class).runMag();
+                    break;
+                case "6":
+                    context.getBean("runSpring", RunSpring.class).runAuthors();
+                    break;
+                case "7":
+                    context.getBean("runSpring", RunSpring.class).runLocations();
                     break;
             }
             if (s.equalsIgnoreCase("exit")){

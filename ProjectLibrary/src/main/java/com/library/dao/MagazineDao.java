@@ -3,20 +3,30 @@ package com.library.dao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import com.library.dao.interfaces.ClassGetAuthorAndLocationInterface;
 import com.library.dao.interfaces.MagazineDaoInterface;
+import com.library.domain.models.Document;
 import com.library.domain.models.Magazine;
 import com.library.domain.models.messages.Messages;
 import com.library.ui.Gson.SerializerDate;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
-
+@Component
 public class MagazineDao implements MagazineDaoInterface {
     private static final Logger log = Logger.getLogger(Magazine.class);
     private final String PATH = "src/main/resources/Magazines";
     private final String PATH1 = "src/main/resources/Magazines1";
+    ClassGetAuthorAndLocationInterface classGetAuthorAndLocationInterface;
+    @Autowired
+    public MagazineDao(@Qualifier("classGetAuthorAndLocation") ClassGetAuthorAndLocationInterface classGetAuthorAndLocationInterface) {
+        this.classGetAuthorAndLocationInterface = classGetAuthorAndLocationInterface;
+    }
 
     Scanner sc1 = new Scanner(System.in);
     Scanner sc2 = new Scanner(System.in);
@@ -31,6 +41,9 @@ public class MagazineDao implements MagazineDaoInterface {
 
     @Override
     public void searchMagazineName(String name) {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new SerializerDate())
+                .create();
         if (isEmptyFile()) {
             System.out.println("Журналов нет, файл пустой(поиск)");
             log.error("Журналов нет, файл пустой(поиск)");
@@ -40,8 +53,10 @@ public class MagazineDao implements MagazineDaoInterface {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
+                Magazine magazine = gson.fromJson(line, Magazine.class);
                 if (line.contains(name)) {
-                    System.out.println(line);
+                    magazine.setLocation(classGetAuthorAndLocationInterface.getLocation(magazine.getLocationId()));
+                    System.out.println(magazine);
                     return;
                 }
             }
@@ -95,6 +110,9 @@ public class MagazineDao implements MagazineDaoInterface {
 
     @Override
     public void showContent() {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new SerializerDate())
+                .create();
         if (isEmptyFile()) {
             System.out.println("Журналов нет, файл пустой(показ всех журналов)");
             log.error("Журналов нет, файл пустой(показ всех журналов)");
@@ -103,7 +121,9 @@ public class MagazineDao implements MagazineDaoInterface {
         File file = new File(PATH);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
-                System.out.println(scanner.nextLine());
+                Magazine magazine = gson.fromJson(scanner.nextLine(), Magazine.class);
+                magazine.setLocation(classGetAuthorAndLocationInterface.getLocation(magazine.getLocationId()));
+                System.out.println(magazine);
             }
         } catch (FileNotFoundException s) {
             System.out.println("Файла нет или не найден(журналы)");
@@ -191,9 +211,9 @@ public class MagazineDao implements MagazineDaoInterface {
                     magazine.setName(name);
                     break;
                 case "2":
-                    System.out.println(Messages.LOCATION);
-                    String location = sc2.nextLine();
-                    magazine.setLocation(location);
+                    System.out.println(Messages.ID_LOCATION);
+                    int locationId = sc2.nextInt();
+                    magazine.setLocationId(locationId);
                     break;
                 case "3":
                     System.out.println(Messages.MONTH_PUB);
