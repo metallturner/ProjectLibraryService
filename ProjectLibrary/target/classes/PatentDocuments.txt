@@ -1,1 +1,1 @@
-{"authorId":1,"patentNumber":"123321","id":1,"name":"Patent","dateAddedToTheLibrary":"0012-12-12","dateOfModification":"0012-12-12","locationId":1}
+{"authorId":2,"patentNumber":"123321","id":1,"name":"Трехточечные ремни безопасности","dateAddedToTheLibrary":"0012-12-12","dateOfModification":"0012-12-12","locationId":2}

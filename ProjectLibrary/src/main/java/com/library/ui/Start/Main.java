@@ -1,14 +1,15 @@
 package com.library.ui.Start;
-
+import com.library.domain.models.SpringConfig;
 import com.library.domain.models.messages.Messages;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
         Scanner sc = new Scanner(System.in);
         boolean b = true;
         while (b) {
