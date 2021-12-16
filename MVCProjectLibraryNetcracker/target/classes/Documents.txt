@@ -1,0 +1,1 @@
+{"dateOfDocumentCreation":{"data":"12-12-12"},"documentNumber":"12","id":1,"name":"docNew","dateAddedToTheLibrary":{"data":"12-12-12"},"dateOfModification":{"data":"12-12-12"},"locationId":1}
