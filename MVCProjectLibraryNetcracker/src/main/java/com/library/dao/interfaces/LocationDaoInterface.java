@@ -2,10 +2,13 @@ package com.library.dao.interfaces;
 
 import com.library.domain.models.Location;
 
+import java.util.List;
+
 public interface LocationDaoInterface {
     public void createLocation(Location location);
-    public void searchLocationName(String name);
+    public Location getById(int id);
     public void deleteLocation(Location location);
-    public void showContent();
+    public List<Location> showContent();
     public void updateLocation(Location location);
+    public int itemAvailability(Location location);
 }

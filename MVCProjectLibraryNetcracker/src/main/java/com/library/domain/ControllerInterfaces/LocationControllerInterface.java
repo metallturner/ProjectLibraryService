@@ -1,11 +1,14 @@
 package com.library.domain.ControllerInterfaces;
 
 import com.library.domain.models.Location;
+import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 public interface LocationControllerInterface {
-    public void createLocation(Location location);
-    public void searchLocationName(String name);
-    public void deleteLocation(Location location);
-    public void showContent();
-    public void updateLocation(Location location);
+    public ResponseEntity<?> createLocation(Location location);
+    public ResponseEntity<Location> getById(int id);
+    public ResponseEntity<?> deleteLocation(int id);
+    public ResponseEntity<List<Location>> showContent();
+    public ResponseEntity<?> updateLocation(Location location);
 }

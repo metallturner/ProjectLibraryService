@@ -1,11 +1,14 @@
 package com.library.domain.ControllerInterfaces;
 
 import com.library.domain.models.Author;
+import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 public interface AuthorControllerInterface {
-    public void createAuthor(Author author);
-    public void searchAuthorName(String name);
-    public void deleteAuthor(Author author);
-    public void showContent();
-    public void updateAuthor(Author author);
+    public ResponseEntity<?> createAuthor(Author author);
+    public ResponseEntity<Author> getById(int id);
+    public ResponseEntity<?> deleteAuthor(int id);
+    public ResponseEntity<List<Author>> showContent();
+    public ResponseEntity<?> updateAuthor(Author author);
 }

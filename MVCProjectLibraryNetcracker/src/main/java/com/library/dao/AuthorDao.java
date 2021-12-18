@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 @Component
 public class AuthorDao implements AuthorDaoInterface {
@@ -31,23 +33,22 @@ public class AuthorDao implements AuthorDaoInterface {
     }
 
     @Override
-    public void searchAuthorName(String name) {
+    public Author getById(int id) {
         Gson gson = new Gson();
                 //.registerTypeAdapter(LocalDate.class, new SerializerDate())
                 //.create();
         if (isEmptyFile()) {
             System.out.println("Авторов нет, файл пустой(поиск)");
             log.error("Авторов нет, файл пустой(поиск)");
-            return;
+            return null;
         }
         File file = new File(PATH);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Author author = gson.fromJson(line, Author.class);
-                if (line.contains(name)) {
-                    System.out.println(author);
-                    return;
+                if (author.getId()==id) {
+                    return author;
                 }
             }
             System.out.println("Такого автора нет(поиск)");
@@ -55,6 +56,7 @@ public class AuthorDao implements AuthorDaoInterface {
         } catch (FileNotFoundException e) {
             log.error("Файла нет или не найден(авторы)");
         }
+        return null;
     }
 
     @Override
@@ -72,9 +74,9 @@ public class AuthorDao implements AuthorDaoInterface {
         try {
             Scanner file = new Scanner(new File(PATH));
             PrintWriter writer = new PrintWriter(PATH1);
-            Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(LocalDate.class, new SerializerDate())
-                    .create();
+            Gson gson = new Gson();
+//                    .registerTypeAdapter(LocalDate.class, new SerializerDate())
+//                    .create();
             while (file.hasNextLine()) {
                 String line = file.nextLine();
                 Author author1 = gson.fromJson(line, Author.class);
@@ -97,26 +99,29 @@ public class AuthorDao implements AuthorDaoInterface {
     }
 
     @Override
-    public void showContent() {
+    public List<Author> showContent() {
         Gson gson = new Gson();
                // .registerTypeAdapter(LocalDate.class, new SerializerDate())
                // .create();
         if (isEmptyFile()) {
             System.out.println("Авторов нет, файл пустой(показ всех авторов)");
             log.error("Авторов нет, файл пустой(показ всех авторов)");
-            return;
+            return null;
         }
         File file = new File(PATH);
+        List<Author> authors = new ArrayList<>();
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 Author author = gson.fromJson(scanner.nextLine(), Author.class);
-                System.out.println(author);
+                authors.add(author);
             }
+            return authors;
         } catch (FileNotFoundException s) {
             System.out.println("Файла нет или не найден(авторы)");
             log.error("Файла нет или не найден(авторы)");
 
         }
+        return null;
     }
 
     @Override
@@ -138,7 +143,6 @@ public class AuthorDao implements AuthorDaoInterface {
             Gson gson = new Gson();
                    // .registerTypeAdapter(LocalDate.class, new SerializerDate())
                    // .create();
-            Author updateAuthor;
             while (file.hasNextLine()) {
                 String line = file.nextLine();
                 Author author1 = gson.fromJson(line, Author.class);
@@ -147,8 +151,7 @@ public class AuthorDao implements AuthorDaoInterface {
                     writer.write("\n");
                 }
                 if (author.getId() == author1.getId()) {
-                    updateAuthor = gson.fromJson(line, Author.class);
-                    writer.write(gson.toJson(updateAuthorFromJason(updateAuthor)));
+                    writer.write(gson.toJson(author));
                     writer.write("\n");
                 }
             }
@@ -166,7 +169,7 @@ public class AuthorDao implements AuthorDaoInterface {
     }
 
 
-    private int itemAvailability(Author author) {
+    public int itemAvailability(Author author) {
         try (Scanner file = new Scanner(new File(PATH))) {
             Gson gson = new Gson();
                   //  .registerTypeAdapter(LocalDate.class, new SerializerDate())
@@ -185,25 +188,7 @@ public class AuthorDao implements AuthorDaoInterface {
         return -1;
     }
 
-    private Author updateAuthorFromJason(Author author) {
-        boolean b = true;
-        while (b) {
-            System.out.println(author);
-            System.out.println(Messages.UPDATE_FOR_AUTHORS);
-            String s = sc1.nextLine();
-            switch (s) {
-                case "1":
-                    System.out.println(Messages.NAME);
-                    String name = sc2.nextLine();
-                    author.setName(name);
-                    break;
-                case "exit":
-                    b = false;
-                    break;
-            }
-        }
-        return author;
-    }
+
 
     private void writeToFile(Author author) {
         author.setId(autoIncrementId());

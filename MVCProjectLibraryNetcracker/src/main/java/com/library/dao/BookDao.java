@@ -32,11 +32,7 @@ public class BookDao implements BookDaoInterface {
     Scanner sc1 = new Scanner(System.in);
     Scanner sc2 = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        BookDao bookDao = new BookDao();
-        bookDao.showContent();
-       // bookDao.createBook(new Book(1, "name", 1,"12-12-12","12-12-12","12-12-12","13",1));
-    }
+
 
     @Override
     public void createBook(Book book) {

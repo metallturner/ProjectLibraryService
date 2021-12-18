@@ -1,2 +1,3 @@
 {"dateOfPublication":{"data":"12-12-2012"},"isbn":"13121110","authorId":1,"id":1,"name":"nameUpdate","dateAddedToTheLibrary":{"data":"12-12-12"},"dateOfModification":{"data":"12-12-12"},"locationId":1}
-{"dateOfPublication":{"data":"12-12-2012"},"isbn":"13121110","authorId":1,"id":2,"name":"nameBook","dateAddedToTheLibrary":{"data":"12-12-12"},"dateOfModification":{"data":"12-12-12"},"locationId":1}
+{"dateOfPublication":{"data":"12-12-2012"},"isbn":"13","authorId":5,"id":2,"name":"name","dateAddedToTheLibrary":{"data":"12-12-12"},"dateOfModification":{"data":"12-12-12"},"locationId":4}
+{"dateOfPublication":{"data":"12-12-2012"},"isbn":"13","authorId":1,"id":3,"name":"name","dateAddedToTheLibrary":{"data":"12-12-12"},"dateOfModification":{"data":"12-12-12"},"locationId":4}

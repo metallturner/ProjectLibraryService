@@ -3,11 +3,19 @@ package com.library.domain.Controllers;
 import com.library.dao.interfaces.AuthorDaoInterface;
 import com.library.domain.ControllerInterfaces.AuthorControllerInterface;
 import com.library.domain.models.Author;
+import com.library.domain.models.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Component
+@RestController
+@RequestMapping("/author")
 public class AuthorController implements AuthorControllerInterface {
     AuthorDaoInterface authorDaoInterface;
 @Autowired
@@ -15,29 +23,49 @@ public class AuthorController implements AuthorControllerInterface {
         this.authorDaoInterface = authorDaoInterface;
     }
 
-    @Override
-    public void createAuthor(Author author) {
+    @PostMapping("/create")
+    public ResponseEntity<?> createAuthor(@RequestBody Author author) {
     authorDaoInterface.createAuthor(author);
+        return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
 
-    @Override
-    public void searchAuthorName(String name) {
-authorDaoInterface.searchAuthorName(name);
+    @GetMapping("/search/{id}")
+    public ResponseEntity<Author> getById(@PathVariable int id) {
+        if(authorDaoInterface.getById(id)!=null){
+            Author author = authorDaoInterface.getById(id);
+            return new ResponseEntity<>(author, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Override
-    public void deleteAuthor(Author author) {
-authorDaoInterface.deleteAuthor(author);
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<?> deleteAuthor(@PathVariable("id") int id) {
+        Author author = new Author();
+        author.setId(id);
+        if(authorDaoInterface.itemAvailability(author)==-1){
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+        authorDaoInterface.deleteAuthor(author);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @Override
-    public void showContent() {
-authorDaoInterface.showContent();
+    @GetMapping()
+    public ResponseEntity<List<Author>> showContent() {
+        List<Author> authors = authorDaoInterface.showContent();
+        if(authors!=null && !authors.isEmpty()){
+            return new ResponseEntity<>(authors, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Override
-    public void updateAuthor(Author author) {
-authorDaoInterface.updateAuthor(author);
+    @PutMapping("/update")
+    public ResponseEntity<?> updateAuthor(@RequestBody Author author) {
+
+
+    authorDaoInterface.updateAuthor(author);
+
+
+return new ResponseEntity<>(HttpStatus.OK);
     }
 }

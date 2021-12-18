@@ -1,2 +1,2 @@
 {"authorId":2,"patentNumber":"123321","id":1,"name":"three-point seat belts","dateAddedToTheLibrary":{"data":"12-12-12"},"dateOfModification":{"data":"12-12-12"},"locationId":2}
-{"authorId":2,"patentNumber":"123321","id":2,"name":"three-point seat belts","dateAddedToTheLibrary":{"data":"12-12-12"},"dateOfModification":{"data":"12-12-12"},"locationId":2}
+{"authorId":2,"patentNumber":"123321","id":2,"name":"three-point seat belts123","dateAddedToTheLibrary":{"data":"12-12-12"},"dateOfModification":{"data":"12-12-12"},"locationId":2}

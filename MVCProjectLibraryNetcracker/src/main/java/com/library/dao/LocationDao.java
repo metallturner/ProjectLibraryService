@@ -11,12 +11,14 @@ import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 @Component
 public class LocationDao implements LocationDaoInterface {
     private static final Logger log = Logger.getLogger(AuthorDao.class);
     private final String PATH = "C:\\Users\\paul\\Desktop\\NetCracker lessons\\MVCProjectLibraryNetcracker\\src\\main\\resources\\Locations";
-    private final String PATH1 = "C:\\Users\\paul\\Desktop\\NetCracker lessons\\MVCProjectLibraryNetcracker\\src\\main\\resources\\Locations";
+    private final String PATH1 = "C:\\Users\\paul\\Desktop\\NetCracker lessons\\MVCProjectLibraryNetcracker\\src\\main\\resources\\Locations1";
 
     Scanner sc1 = new Scanner(System.in);
     Scanner sc2 = new Scanner(System.in);
@@ -30,23 +32,23 @@ public class LocationDao implements LocationDaoInterface {
     }
 
     @Override
-    public void searchLocationName(String name) {
+    public Location getById(int id) {
         Gson gson = new Gson();
                // .registerTypeAdapter(LocalDate.class, new SerializerDate())
                // .create();
         if (isEmptyFile()) {
             System.out.println("Локации нет, файл пустой(поиск)");
             log.error("Локации нет, файл пустой(поиск)");
-            return;
+            return null;
         }
         File file = new File(PATH);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Location location = gson.fromJson(line, Location.class);
-                if (line.contains(name)) {
+                if (location.getId()==id) {
                     System.out.println(location);
-                    return;
+                    return location;
                 }
             }
             System.out.println("Такой Локации нет(Локации)");
@@ -54,6 +56,7 @@ public class LocationDao implements LocationDaoInterface {
         } catch (FileNotFoundException e) {
             log.error("Файла нет или не найден(Локации)");
         }
+        return null;
     }
 
     @Override
@@ -96,26 +99,29 @@ public class LocationDao implements LocationDaoInterface {
     }
 
     @Override
-    public void showContent() {
+    public List<Location> showContent() {
         Gson gson = new Gson();
                // .registerTypeAdapter(LocalDate.class, new SerializerDate())
               //  .create();
         if (isEmptyFile()) {
             System.out.println("Локации нет, файл пустой(показ всех Локации)");
             log.error("Локации нет, файл пустой(показ всех Локации)");
-            return;
+            return null;
         }
         File file = new File(PATH);
+        List<Location> locations = new ArrayList<>();
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 Location location = gson.fromJson(scanner.nextLine(), Location.class);
-                System.out.println(location);
+                locations.add(location);
             }
+            return locations;
         } catch (FileNotFoundException s) {
             System.out.println("Файла нет или не найден(Локации)");
             log.error("Файла нет или не найден(Локации)");
 
         }
+        return null;
     }
 
     @Override
@@ -137,7 +143,6 @@ public class LocationDao implements LocationDaoInterface {
             Gson gson = new Gson();
                     //.registerTypeAdapter(LocalDate.class, new SerializerDate())
                    // .create();
-            Location updateLocation;
             while (file.hasNextLine()) {
                 String line = file.nextLine();
                 Location location1 = gson.fromJson(line, Location.class);
@@ -146,8 +151,7 @@ public class LocationDao implements LocationDaoInterface {
                     writer.write("\n");
                 }
                 if (location.getId() == location1.getId()) {
-                    updateLocation = gson.fromJson(line, Location.class);
-                    writer.write(gson.toJson(updateLocationFromJason(updateLocation)));
+                    writer.write(gson.toJson(location));
                     writer.write("\n");
                 }
             }
@@ -165,7 +169,7 @@ public class LocationDao implements LocationDaoInterface {
     }
 
 
-    private int itemAvailability(Location location) {
+    public int itemAvailability(Location location) {
         try (Scanner file = new Scanner(new File(PATH))) {
             Gson gson = new Gson();
                    // .registerTypeAdapter(LocalDate.class, new SerializerDate())
@@ -184,35 +188,7 @@ public class LocationDao implements LocationDaoInterface {
         return -1;
     }
 
-    private Location updateLocationFromJason(Location location) {
-        boolean b = true;
-        while (b) {
-            System.out.println(location);
-            System.out.println(Messages.UPDATE_FOR_LOCATIONS);
-            String s = sc1.nextLine();
-            switch (s) {
-                case "1":
-                    System.out.println(Messages.NAME);
-                    String name = sc2.nextLine();
-                    location.setName(name);
-                    break;
-                case "2":
-                    System.out.println(Messages.NAME);
-                    String city = sc2.nextLine();
-                    location.setCity(city);
-                    break;
-                case "3":
-                    System.out.println(Messages.NAME);
-                    String state = sc2.nextLine();
-                    location.setState(state);
-                    break;
-                case "exit":
-                    b = false;
-                    break;
-            }
-        }
-        return location;
-    }
+
 
     private void writeToFile(Location location) {
         location.setId(autoIncrementId());
